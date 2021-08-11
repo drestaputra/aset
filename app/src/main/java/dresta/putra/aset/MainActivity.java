@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // membuat transparan notifikasi
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         }
@@ -147,13 +146,10 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<InstanceIdResult> task) {
                         if (!task.isSuccessful()) {
-//                            Log.w("TAG", "getInstanceId failed", task.getException());
                             return;
                         }
-
-                        // Get new Instance ID token
                         String token = task.getResult().getToken();
-//                        Log.d("tescurrentToken", token);
+
 
                     }
                 });
