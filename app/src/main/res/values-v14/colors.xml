@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#579BE4</color>
+    <color name="colorPrimaryDark">#4890DD</color>
+    <color name="colorSecondary">#fad500</color>
+    <color name="colorSecondaryDark">#FF9800</color>
+    <color name="colorAccent">#476FD6</color>
+    <color name="colorTransparant">#00FFFFFF</color>
+
+    <color name="colorPrimary100">#47C0F7</color>
+    <color name="colorPrimary900">#3949AB</color>
+
+    <color name="colorWhite">#ffffff</color>
+    <color name="colorGrey">#c3c3c3</color>
+    <color name="greycustom">#00d1d1d1</color>
+    <color name="greycustom2">#edebeb</color>
+    <color name="BottomBar">#ffffff</color>
+    <color name="white">#FFFFFF</color>
+    <color name="signupColor">#02a6c2</color>
+    <color name="BtOut">#868686</color>
+    <color name="txBlack">#343434</color>
+    <color name="colorOrange">#ffc400</color>
+    <color name="black2">#353535</color>
+    <color name="navbar">#06a9e3</color>
+    <color name="btnaddcart">#06bbef</color>
+    <color name="greycustom3">#f8f8f8</color>
+    <color name="statusbar">#06bbef</color>
+
+
+    <!-- Screens background color-->
+    <color name="bg_screen1">#800000</color>
+    <color name="bg_screen2">#006400</color>
+    <color name="bg_screen3">#008B8B</color>
+    <color name="bg_screen4">#8A2BE2</color>
+
+    <!-- dots inactive colors -->
+    <color name="dot_dark_screen1">#FFFFF0</color>
+    <color name="dot_dark_screen2">#FFFFF0</color>
+    <color name="dot_dark_screen3">#FFFFF0</color>
+    <color name="dot_dark_screen4">#FFFFF0</color>
+
+    <!-- dots active colors -->
+    <color name="dot_light_screen1">#A9A9A9</color>
+    <color name="dot_light_screen2">#A9A9A9</color>
+    <color name="dot_light_screen3">#A9A9A9</color>
+    <color name="dot_light_screen4">#A9A9A9</color>
+    <color name="txGrey">#565656</color>
+    <color name="txWhite">#FFFFFF</color>
+
+    <array name="array_dot_active">
+        <item>@color/dot_light_screen1</item>
+        <item>@color/dot_light_screen2</item>
+        <item>@color/dot_light_screen3</item>
+        <item>@color/dot_light_screen4</item>
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>@color/dot_dark_screen1</item>
+        <item>@color/dot_dark_screen2</item>
+        <item>@color/dot_dark_screen3</item>
+        <item>@color/dot_dark_screen4</item>
+    </array>
+
+    <color name="gray_50">#FAFAFA</color>
+    <color name="gray_100">#F5F5F5</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_300">#E0E0E0</color>
+    <color name="gray_400">#BDBDBD</color>
+    <color name="gray_500">#9E9E9E</color>
+    <color name="gray_600">#757575</color>
+    <color name="gray_700">#616161</color>
+    <color name="gray_800">#424242</color>
+    <color name="gray_900">#212121</color>
+
+    <color name="blue_50">#E3F2FD</color>
+    <color name="blue_100">#BBDEFB</color>
+    <color name="blue_200">#90CAF9</color>
+    <color name="blue_300">#64B5F6</color>
+    <color name="blue_400">#42A5F5</color>
+    <color name="blue_500">#2196F3</color>
+    <color name="blue_600">#1E88E5</color>
+    <color name="blue_700">#1976D2</color>
+    <color name="blue_800">#1565C0</color>
+    <color name="blue_900">#0D47A1</color>
+
+    <color name="red_50">#FFEBEE</color>
+    <color name="red_100">#FFCDD2</color>
+    <color name="red_200">#EF9A9A</color>
+    <color name="red_300">#E57373</color>
+    <color name="red_400">#EF5350</color>
+    <color name="red_500">#F44336</color>
+    <color name="red_600">#E53935</color>
+    <color name="red_700">#D32F2F</color>
+    <color name="red_800">#C62828</color>
+    <color name="red_900">#B71C1C</color>
+
+    <color name="green_50">#DBE6DA</color>
+    <color name="green_100">#BAD7B7</color>
+    <color name="green_200">#99C495</color>
+    <color name="green_300">#7AB273</color>
+    <color name="green_400">#66A55C</color>
+    <color name="green_500">#549948</color>
+    <color name="green_600">#4A8840</color>
+    <color name="green_700">#3F7736</color>
+    <color name="green_800">#35662D</color>
+    <color name="green_900">#35662D</color>
+
+    <color name="google_red">#ea5a4f</color>
+    <color name="google_blue">#6099f5</color>
+    <color name="google_yellow">#edc855</color>
+    <color name="google_green">#5cb171</color>
+
+</resources>

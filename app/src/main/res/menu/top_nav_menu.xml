@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="all">
+        <item
+            android:id="@+id/nav_1_olahraga"
+            android:checked="false"
+            android:icon="@drawable/ic_barbel"
+            android:title="Olahraga" />
+        <item
+            android:id="@+id/nav_2_akun"
+            android:checked="false"
+            android:icon="@drawable/ic_user"
+            android:title="Akun" />
+        <item
+            android:id="@+id/nav_3_riwayat"
+            android:checked="false"
+            android:icon="@drawable/ic_refresh_white"
+            android:title="Riwayat" />
+        <item
+            android:id="@+id/nav_4_about"
+            android:checked="false"
+            android:icon="@drawable/ic_kontak"
+            android:title="About App" />
+
+
+
+
+    </group>
+
+</menu>

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1065368203661",
+    "project_id": "koperasi-artakita",
+    "storage_bucket": "koperasi-artakita.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1065368203661:android:5a077662c6339bf9c10dc4",
+        "android_client_info": {
+          "package_name": "dresta.putra.artakita"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1065368203661-hgudpp4sv3cjo5iq2c7auseejpe5uaun.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dresta.putra.artakita",
+            "certificate_hash": "e57f01dc6e4f7a6de26f0baa8cda7c8bdf7d9a61"
+          }
+        },
+        {
+          "client_id": "1065368203661-pmd9ki8o1pf9m0af4qfrvjf02j3efie3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCWUTMnP8iVdJV367B0MIwwQTj5ztJcmuY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1065368203661-pmd9ki8o1pf9m0af4qfrvjf02j3efie3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

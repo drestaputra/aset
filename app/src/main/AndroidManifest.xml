@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="dresta.putra.aset">
+    <!-- made by Dresta Twas Ardha Putra : 0895391117285 skripsi kelar cuks -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:fullBackupContent="@xml/backup_descriptor"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name="dresta.putra.aset.nasabah.RiwayatNasabahActivity"></activity>
+        <activity android:name="dresta.putra.aset.request.KonfirmasiActivity" />
+        <activity android:name="dresta.putra.aset.request.DetailInvoiceActivity" />
+        <activity android:name="dresta.putra.aset.request.HistoryRequestActivity" />
+        <activity
+            android:name="dresta.putra.aset.paket.RequestActivty"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name="dresta.putra.aset.oper_berkas.OperBerkasNasabahActivity" />
+
+        <service
+            android:name="dresta.putra.aset.FirebaseServices"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_logo" /> <!-- warna text notifikasi -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />
+
+        <activity android:name="dresta.putra.aset.angsuran.RiwayatAngsuranActivity" />
+        <activity android:name="dresta.putra.aset.setoran.LihatSetoranActivity" />
+        <activity android:name="dresta.putra.aset.nasabah.EditNasabahActivity" />
+        <activity android:name="dresta.putra.aset.owner.ProfilKoperasiActivity" />
+        <activity android:name="dresta.putra.aset.kolektor.EditPasswordKolektorActivity" />
+        <activity android:name="dresta.putra.aset.kolektor.EditProfilKolektorActivity" />
+        <activity android:name="dresta.putra.aset.kolektor.ProfilKolektorActivity" />
+        <activity android:name="dresta.putra.aset.pinjaman.TambahPinjamanActivity" />
+        <activity android:name="dresta.putra.aset.pinjaman.PinjamanActivity" />
+        <activity android:name="dresta.putra.aset.simpanan.TambahSimpananActivity" />
+        <activity android:name="dresta.putra.aset.simpanan.SimpanUangActivity" />
+        <activity android:name="dresta.putra.aset.simpanan.RiwayatSimpananActivity" />
+        <activity android:name="dresta.putra.aset.simpanan.SimpananActivity" />
+        <activity android:name="dresta.putra.aset.AboutActivity" />
+        <activity android:name="dresta.putra.aset.transaksi.TransaksiActivity" />
+        <activity android:name="dresta.putra.aset.angsuran.BayarAngsuranActivity" />
+        <activity android:name="dresta.putra.aset.jadwal.JadwalActivity" />
+        <activity android:name="dresta.putra.aset.informasi_program.DetailInformasiProgramActivity" />
+        <activity android:name="dresta.putra.aset.pengaduan.PengaduanActivity" />
+        <activity android:name="dresta.putra.aset.simulasi.SimulasiActivity" />
+        <activity android:name="dresta.putra.aset.informasi_program.InformasiProgramActivity" />
+        <activity android:name="dresta.putra.aset.oper_berkas.RiwayatOperBerkasActivity" />
+        <activity android:name="dresta.putra.aset.oper_berkas.OperActivity" />
+        <activity android:name="dresta.putra.aset.pinjaman.DetailPinjamanActivity" />
+        <activity android:name="dresta.putra.aset.oper_berkas.OperBerkasActivity" />
+        <activity android:name="dresta.putra.aset.nasabah.DetailNasabahActivity" />
+        <activity android:name="dresta.putra.aset.nasabah.NasabahActivity" />
+        <activity
+            android:name="dresta.putra.aset.daftar.DaftarActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity android:name="dresta.putra.aset.WebActivity" />
+        <activity android:name="dresta.putra.aset.MainActivity" />
+        <activity android:name="dresta.putra.aset.WelcomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="dresta.putra.aset.login.LoginActivity"
+            android:label="Login"
+            android:windowSoftInputMode="adjustResize" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>

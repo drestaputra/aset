@@ -1,0 +1,124 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F1F1F1"
+    android:orientation="vertical"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="0dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <Button
+                android:id="@+id/BtnClose"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:backgroundTint="#FFFFFF"
+                android:fontFamily="@font/asap_bold"
+                android:text="X"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:id="@+id/lyGiftList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="8"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    tools:ignore="UselessParent">
+
+                    <Spinner
+                        android:id="@+id/spinnerSurvei"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:overlapAnchor="false"
+                        android:spinnerMode="dropdown" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginTop="-5dp"
+                    android:background="@color/blue_50"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:text="Survei"
+                    android:textColor="@color/txBlack" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/lyGiftList2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_weight="8"
+                    android:background="@drawable/border"
+                    android:orientation="horizontal"
+                    tools:ignore="UselessParent">
+
+                    <Spinner
+                        android:id="@+id/spinnerKategori"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:overlapAnchor="false"
+                        android:spinnerMode="dropdown" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginTop="-5dp"
+                    android:background="@color/blue_50"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:text="Kategori"
+                    android:textColor="@color/txBlack" />
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/BtFilter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="#2196F3"
+        android:drawableStart="@drawable/ic_filter_white"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center|center_horizontal"
+        android:paddingStart="120dp"
+        android:paddingEnd="130dp"
+        android:text="Filter"
+        android:textColor="#fff" />
+
+
+</LinearLayout>

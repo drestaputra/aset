@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home"
+        android:iconTint="#FFB5B5B5"
+        android:title="Home" />
+    <item
+        android:id="@+id/navigation_kategori"
+        android:icon="@drawable/ic_history"
+        android:iconTint="#FFB5B5B5"
+        android:title="Angsuran" />
+    <item
+        android:id="@+id/navigation_transaksi"
+        android:title="Tambah" />
+    <item
+        android:id="@+id/navigation_riwayat_simpanan"
+        android:icon="@drawable/ic_history"
+        android:iconTint="#FFB5B5B5"
+        android:title="Simpanan" />
+    <item
+        android:id="@+id/navigation_lainnya"
+        android:icon="@drawable/ic_more"
+        android:title="Lainnya" />
+
+
+</menu>

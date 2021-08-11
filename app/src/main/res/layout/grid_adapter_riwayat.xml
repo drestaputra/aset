@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:elevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/common_google_signin_btn_text_light_normal_background"
+        android:orientation="horizontal"
+        android:padding="14dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/TxvTglDaftar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="20 Maret 2019"
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/TxvIdPendaftaran"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ID Pendaftaran : 2091200"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/TxvProduk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Haji"
+                android:textColor="#444343"
+                android:textSize="28sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/TxvTglDaftar" />
+
+            <TextView
+                android:id="@+id/TxvNamaLengkap"
+                android:layout_width="0dp"
+                android:layout_height="16sp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/lato_black"
+                android:gravity="start"
+                android:singleLine="true"
+                android:text="Nama : Dresta Twas Ardha P"
+                android:textColor="#504F4F"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/TxvProduk" />
+
+            <TextView
+                android:id="@+id/TxvEmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:fontFamily="@font/lato_black"
+                android:singleLine="true"
+                android:text="Email : drestaputra@gmail.com"
+                android:textColor="#504F4F"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TxvNamaLengkap" />
+
+            <TextView
+                android:id="@+id/TxvData1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato_black"
+                android:singleLine="true"
+                android:text="Rencana Keberangkatan : 20 Juni 2019"
+                android:textColor="#504F4F"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/TxvEmail" />
+
+            <TextView
+                android:id="@+id/TxvData2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:fontFamily="@font/lato_black"
+                android:singleLine="true"
+                android:text="Tipe Kamar : Sekamar Bertiga"
+                android:textColor="#504F4F"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/TxvData1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</LinearLayout>

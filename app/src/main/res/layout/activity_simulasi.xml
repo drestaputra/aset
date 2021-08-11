@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient_abu_v">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:cardCornerRadius="6dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingStart="20dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="20dp"
+                android:paddingBottom="120dp">
+
+
+                <Button
+                    android:id="@+id/IvBack"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/ic_left_black"
+                    android:elevation="0dp" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/lato_bold"
+                    android:gravity="center"
+                    android:text="Simulasi Pinjaman"
+                    android:textColor="#2F2F30"
+                    android:textSize="22sp" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:gravity="bottom"
+                    android:textColorHint="@color/colorWhite">
+
+                    <EditText
+                        android:id="@+id/EtJumlahPinjaman"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:background="@drawable/bg_gradient_success_nc"
+                        android:fontFamily="@font/asap_bold"
+                        android:hint="Jumlah Pinjaman (Rp.)"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:textColor="@color/colorWhite"
+                        android:textColorHighlight="@color/colorPrimaryDark"
+                        android:textColorHint="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/lato_bold"
+                    android:text="Periode pinjaman"
+                    android:textColor="@color/gray_800" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:orientation="horizontal">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:clipToPadding="true"
+                        app:cardCornerRadius="12dp"
+                        app:cardUseCompatPadding="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <Button
+                                android:id="@+id/BtnHarian"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:background="#AED581"
+                                android:backgroundTint="#AED581"
+                                android:text="Harian"
+                                android:textAllCaps="false"
+                                android:textColor="@color/black2"
+                                android:textSize="12sp" />
+
+                            <Button
+                                android:id="@+id/BtnMingguan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:background="#D4E157"
+                                android:backgroundTint="#D4E157"
+                                android:text="Mingguan"
+                                android:textAllCaps="false"
+                                android:textColor="@color/black2"
+                                android:textSize="12sp" />
+
+                            <Button
+                                android:id="@+id/BtnBulanan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:background="#FFD54F"
+                                android:backgroundTint="#FFD54F"
+                                android:text="Bulanan"
+                                android:textAllCaps="false"
+                                android:textColor="@color/black2"
+                                android:textSize="12sp" />
+
+                            <Button
+                                android:id="@+id/BtnTahunan"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_weight="1"
+                                android:background="#FFB74D"
+                                android:backgroundTint="#FFB74D"
+                                android:text="Tahunan"
+                                android:textAllCaps="false"
+                                android:textColor="@color/black2"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:gravity="bottom"
+                    android:textColorHint="@color/colorWhite">
+
+                    <EditText
+                        android:id="@+id/EtPeriodePinjaman"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:background="@drawable/bg_gradient_success_nc"
+                        android:fontFamily="@font/asap_bold"
+                        android:hint="Lama pinjaman"
+                        android:inputType="number"
+                        android:padding="10dp"
+                        android:textColor="@color/colorWhite"
+                        android:textColorHighlight="@color/colorPrimaryDark"
+                        android:textColorHint="@color/colorPrimaryDark"
+                        android:textSize="16sp" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:fontFamily="@font/lato_bold"
+                    android:text="Bunga (%)"
+                    android:textColor="@color/gray_800" />
+
+                <com.warkiz.widget.IndicatorStayLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp">
+
+                    <com.warkiz.widget.IndicatorSeekBar
+                        android:id="@+id/SbBunga"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:isb_indicator_text_size="10sp"
+                        app:isb_max="100"
+                        app:isb_min="0"
+                        app:isb_only_thumb_draggable="true"
+                        app:isb_progress="0"
+                        app:isb_progress_value_float="true"
+                        app:isb_show_indicator="rounded_rectangle"
+                        app:isb_show_tick_texts="true"
+                        app:isb_thumb_size="16dp"
+                        app:isb_tick_texts_color="@color/gray_600"
+                        app:isb_ticks_count="2" />
+                </com.warkiz.widget.IndicatorStayLayout>
+
+                <LinearLayout
+                    android:id="@+id/LlHasil"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/asap_bold"
+                        android:text="Hitungan pinjamanmu"
+                        android:textSize="13sp" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical"
+                        android:padding="4dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical"
+                            android:text="Bunga"
+                            android:textSize="11sp" />
+
+                        <TextView
+                            android:id="@+id/TxvAngsuran"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+
+                            android:layout_weight="1"
+                            android:fontFamily="@font/lato"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/gray_800"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/imageView9"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:tint="#CACACA"
+                        app:srcCompat="@drawable/bg_indicator" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/BtnSimulasi"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="bottom"
+                android:background="@drawable/bg_gradient_success_nc"
+                android:fontFamily="@font/asap_bold"
+                android:padding="10dp"
+                android:shadowColor="@android:color/transparent"
+                android:text="Simulasi"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold" />
+
+        </androidx.cardview.widget.CardView>
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

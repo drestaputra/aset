@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient_black">
+
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:layout_centerVertical="true"-->
+    <!--        android:layout_marginBottom="150dp"-->
+    <!--        android:gravity="bottom|center_horizontal"-->
+    <!--        android:orientation="vertical">-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:fontFamily="@font/lato_bold"-->
+    <!--            android:text="Welcome"-->
+    <!--            android:textColor="@color/txBlack"-->
+    <!--            android:textSize="@dimen/slide_title"-->
+    <!--            android:textStyle="bold" />-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginTop="10dp"-->
+    <!--            android:fontFamily="@font/lato_bold"-->
+    <!--            android:paddingLeft="@dimen/desc_padding"-->
+    <!--            android:paddingRight="@dimen/desc_padding"-->
+    <!--            android:text="AL-MA’WA TOUR AND TRAVEL"-->
+    <!--            android:textAlignment="center"-->
+    <!--            android:textColor="@color/txGrey"-->
+    <!--            android:textSize="18dp" />-->
+
+    <!--    </LinearLayout>-->
+</LinearLayout>

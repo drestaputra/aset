@@ -1,0 +1,514 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/CorLMain"
+    android:layout_height="match_parent">
+
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@android:color/transparent"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        android:translationZ="0.1dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:navigationIcon="@drawable/ic_left"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:titleMargin="0dp"
+            app:titleTextColor="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="start|center_vertical"
+                    android:text="Bayar Angsuran"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+
+
+            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp">
+
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="4dp">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:paddingStart="10dp"
+                        android:paddingTop="20dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="20dp">
+
+                        <TextView
+                            android:id="@+id/textView8"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="4dp"
+                            android:fontFamily="sans-serif-black"
+                            android:text="ID Pinjaman - Nasabah"
+                            android:textColor="@color/gray_800" />
+
+                        <Spinner
+                            android:id="@+id/SpIdPinjaman"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_gradient_gray"
+                            android:popupElevation="0dp" />
+
+                        <TextView
+                            android:id="@+id/SpError"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="right"
+                            android:textColor="@color/google_red" />
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    app:cardBackgroundColor="#88A5F1"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="3dp"
+                    app:cardMaxElevation="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/TxvNamaNasabah"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/lato_black"
+                                android:textColor="@color/colorWhite"
+                                android:textSize="17sp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="4dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/TxvJumlahPinjaman"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/lato_black"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="14sp" />
+
+                                <TextView
+                                    android:id="@+id/TxvIdPinjaman"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/lato_black"
+                                    android:gravity="end"
+                                    android:textColor="@color/colorWhite"
+                                    android:textSize="14sp" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginRight="8dp"
+                                    android:layout_marginBottom="8dp"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/TxvTerbayar"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="sans-serif"
+                                        android:text=""
+                                        android:textColor="@color/colorWhite"
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:id="@+id/TxvKekurangan"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="sans-serif"
+                                        android:text=""
+                                        android:textColor="@color/colorWhite"
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:id="@+id/TxvAngsuran"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="sans-serif"
+                                        android:text=""
+                                        android:textColor="@color/colorWhite"
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:id="@+id/TxvPeriode"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="sans-serif"
+                                        android:text=""
+                                        android:textColor="@color/colorWhite"
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:id="@+id/TxvLamaAngsuran"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="sans-serif"
+                                        android:text=""
+                                        android:textColor="@color/colorWhite"
+                                        android:textSize="12sp" />
+
+                                    <TextView
+                                        android:id="@+id/TxvTglPinjaman"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="sans-serif"
+                                        android:text=""
+                                        android:textColor="@color/colorWhite"
+                                        android:textSize="12sp" />
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:orientation="horizontal">
+
+                                        <Button
+                                            android:id="@+id/BtnDetail"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="30dp"
+                                            android:layout_gravity="center"
+                                            android:layout_margin="8dp"
+                                            android:layout_marginRight="8dp"
+                                            android:background="@drawable/bg_gradient_warning"
+                                            android:gravity="center"
+                                            android:text="Detail"
+                                            android:textAllCaps="false"
+                                            android:textColor="@color/colorWhite" />
+
+                                    </LinearLayout>
+
+
+                                </LinearLayout>
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="end"
+                                    app:cardCornerRadius="8dp">
+
+                                    <ImageView
+                                        android:id="@+id/IvNasabah"
+                                        android:layout_width="120dp"
+                                        android:layout_height="120dp"
+                                        android:scaleType="fitXY"
+                                        app:srcCompat="@drawable/ic_akun" />
+                                </androidx.cardview.widget.CardView>
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="6dp"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="4dp"
+                    app:contentPaddingBottom="20dp">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/TILNamaLengkap"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginRight="8dp"
+                            android:gravity="bottom"
+                            android:textColorHint="@color/gray_800"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/textView2">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/EtJumlahAngsuran"
+                                android:layout_width="match_parent"
+                                android:layout_height="35dp"
+                                android:background="@drawable/bg_gradient_gray"
+                                android:fontFamily="@font/asap_bold"
+                                android:hint="Jumlah Angsuran (Rp.)"
+                                android:inputType="number"
+                                android:maxLines="1"
+                                android:padding="10dp"
+                                android:textColor="@color/gray_800"
+                                android:textColorHighlight="@color/gray_800"
+                                android:textColorHint="@color/gray_800"
+                                android:textColorLink="@color/gray_800"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <Switch
+                            android:id="@+id/SwAmbilSimpanan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="8dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="@drawable/bg_gradient_gray"
+                            android:fontFamily="@font/asap_bold"
+                            android:paddingTop="8dp"
+                            android:paddingBottom="8dp"
+                            android:text="Ambil Simpanan"
+                            android:textColor="@color/gray_800" />
+
+                        <LinearLayout
+                            android:id="@+id/LlAmbilSimpanan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="8dp"
+                                app:cardBackgroundColor="#88A5F1"
+                                app:cardCornerRadius="4dp"
+                                app:cardElevation="3dp"
+                                app:cardMaxElevation="4dp">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:padding="10dp">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="4dp"
+                                        android:layout_weight="1"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:id="@+id/TxvJumlahSimpanan"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:fontFamily="@font/lato_black"
+                                            android:textColor="@color/colorWhite"
+                                            android:textSize="14sp" />
+
+                                        <TextView
+                                            android:id="@+id/TxvIdSimpanan"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:fontFamily="@font/lato_black"
+                                            android:gravity="end"
+                                            android:textColor="@color/colorWhite"
+                                            android:textSize="14sp" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="8dp"
+                                        android:layout_marginRight="8dp"
+                                        android:layout_marginBottom="8dp"
+                                        android:layout_weight="1"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:id="@+id/TxvLastUpdate"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="sans-serif"
+                                            android:textColor="@color/colorWhite"
+                                            android:textSize="12sp" />
+
+                                        <TextView
+                                            android:id="@+id/TxvTglSimpanan"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="sans-serif"
+                                            android:textColor="@color/colorWhite"
+                                            android:textSize="12sp" />
+
+
+                                    </LinearLayout>
+                                </LinearLayout>
+
+                            </androidx.cardview.widget.CardView>
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="50dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginRight="8dp"
+                                android:gravity="bottom"
+                                android:textColorHint="@color/gray_800"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toBottomOf="@id/textView2">
+
+                                <AutoCompleteTextView
+                                    android:id="@+id/EtJumlahSimpanan"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="35dp"
+                                    android:background="@drawable/bg_gradient_gray"
+                                    android:fontFamily="@font/asap_bold"
+                                    android:hint="Ambil Simpanan Sejumlah (Rp.)"
+                                    android:inputType="number"
+                                    android:maxLines="1"
+                                    android:padding="10dp"
+                                    android:textColor="@color/gray_800"
+                                    android:textColorHighlight="@color/gray_800"
+                                    android:textColorHint="@color/gray_800"
+                                    android:textColorLink="@color/gray_800"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+                            </com.google.android.material.textfield.TextInputLayout>
+                        </LinearLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="135dp"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginRight="8dp"
+                            android:gravity="bottom"
+                            android:textColorHint="@color/gray_800"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/textView2">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/EtKeterangan"
+                                android:layout_width="match_parent"
+                                android:layout_height="120dp"
+                                android:background="@drawable/bg_gradient_gray"
+                                android:fontFamily="@font/asap_bold"
+                                android:hint="Keterangan"
+                                android:inputType="text"
+                                android:lines="5"
+                                android:maxLength="1000"
+                                android:maxLines="5"
+                                android:padding="10dp"
+                                android:textColor="@color/gray_800"
+                                android:textColorHighlight="@color/gray_800"
+                                android:textColorHint="@color/gray_800"
+                                android:textColorLink="@color/gray_800"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
+                        </com.google.android.material.textfield.TextInputLayout>
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/BtnBayar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_gradient_success_nc"
+            android:text="Bayar"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

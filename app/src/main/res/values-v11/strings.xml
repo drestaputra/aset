@@ -1,0 +1,132 @@
+<resources>
+    <string name="app_name">Aset Tanah</string>
+    <string name="title_activity_welcome">Home Screen</string>
+    <string name="next">LANJUT</string>
+    <string name="skip">LEWATI</string>
+    <string name="start">MULAI</string>
+
+    <string name="text_accounts">All Accounts</string>
+    <string name="hint_name">Name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_confirm_password">Ulangi Password</string>
+    <string name="text_login">Login</string>
+    <string name="text_register">Register</string>
+    <string name="error_message_name">Nama</string>
+    <string name="error_message_email">Masukkan Email</string>
+    <string name="error_message_age">Umur</string>
+    <string name="error_message_password">Masukkan Password</string>
+    <string name="success_message">Berhasil Daftar</string>
+    <string name="text_not_member">Daftar</string>
+    <string name="text_already_member">Already a member? Login</string>
+    <string name="error_email_exists">Email Sudah ad</string>
+    <string name="error_password_match">Password Tidak Cocok</string>
+    <string name="error_valid_email_password">Email atau Password Salah</string>
+    <string name="action_settings">Info</string>
+
+    <string name="slide_1_title">KULINER</string>
+    <string name="slide_1_desc">Rasakan Berbagai Kuliner yang Akan Memanjakan Lidahmu</string>
+
+    <string name="slide_2_title">HOTEL</string>
+    <string name="slide_2_desc">Temukan Hotel yang Nyaman Untuk Istirahat Perjalananmu</string>
+
+    <string name="slide_3_title">WISATA</string>
+    <string name="slide_3_desc">Destinasi Menarik Menantimu. Segera Pilih Destinasi Wisatamu</string>
+
+    <string name="slide_4_title">GUIDE</string>
+    <string name="slide_4_desc">Cari Guide Untuk Menemani Perjalananmu Agar  semakin asyik </string>
+    <string name="title_activity_login">Masuk</string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_salat">SalatActivity</string>
+
+    <string name="title_activity_jadwal">JadwalActivity</string>
+
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="title_activity_produk">ProdukActivity</string>
+    <string name="title_activity_detail">DetailActivity</string>
+    <string name="title_activity_legalitas">LegalitasActivity</string>
+    <string name="title_activity_manasik">ManasikActivity</string>
+    <string name="title_activity_doa">DoaActivity</string>
+    <string name="title_activity_w">WActivity</string>
+    <string name="title_activity_pilih">PilihActivity</string>
+    <string name="title_activity_register_jamaah">RegisterJamaahActivity</string>
+    <string name="title_activity_tes">TesActivity</string>
+    <string name="returned_from_app_settings_to_activity">
+        Returned from app settings to MainActivity with the following permissions:
+        \n\nCamera: %s
+        \nLocation &amp; Contacts: %s
+        \nSMS: %s
+    </string>
+    <string name="title_activity_itinerary">ItineraryActivity</string>
+    <string name="title_activity_detail_itinerary">DetailItineraryActivity</string>
+
+    <string name="title_activity_program">ProgramActivity</string>
+    <string name="title_activity_detail_program">DetailProgramActivity</string>
+    <string name="title_activity_akun">AkunActivity</string>
+    <string name="title_activity_about">AboutActivity</string>
+    <string name="title_activity_riwayat">RiwayatActivity</string>
+    <string name="title_activity_artikel">ArtikelActivity</string>
+    <string name="title_activity_detail_berita">DetailBeritaActivity</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="title_activity_publik_training">PublikTraining</string>
+    <string name="title_activity_detail_publik_training">DetailPublikTrainingActivity</string>
+    <string name="title_activity_detail_sertifikasi">DetailSertifikasiActivity</string>
+    <string name="title_activity_detail_konsultan">DetailKonsultanActivity</string>
+    <string name="title_activity_in_house_training">InHouseTrainingActivity</string>
+    <string name="title_activity_detail_in_house_training">DetailInHouseTraining</string>
+    <string-array name="animation_type">
+        <item>None</item>
+        <item>Color</item>
+        <item>Scale</item>
+        <item>Worm</item>
+        <item>Slide</item>
+        <item>Fill</item>
+        <item>Thin Worm</item>
+        <item>Drop</item>
+        <item>Swap</item>
+        <item>Scale Down</item>
+    </string-array>
+    <string-array name="orientation">
+        <item>Horizontal</item>
+        <item>Vertical</item>
+    </string-array>
+    <string-array name="rtl">
+        <item>On</item>
+        <item>Off</item>
+        <item>Auto</item>
+    </string-array>
+</resources>
