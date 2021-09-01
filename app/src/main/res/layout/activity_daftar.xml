@@ -4,13 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient_abu_v">
+    android:background="@drawable/bg_gradient_success_nc">
+
+    <ImageView
+        android:id="@+id/IvBack"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:tint="@color/colorWhite"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_left" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/ClDaftar"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,24 +38,53 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:padding="30dp">
 
 
+                    <ImageView
+                        android:id="@+id/ImvLogo"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="3dp"
+                        app:srcCompat="@drawable/ic_logo" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/asap_bold"
+                        android:gravity="center"
+                        android:text="Aplikasi Manajemen Aset Tanah \n Kabupaten Kebumen"
+                        android:textColor="#2F2F30"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/asap_bold"
+                        android:text="Daftar"
+                        android:textColor="#2F2F30"
+                        android:textSize="22sp" />
+
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/TILNamaLengkap"
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_marginLeft="8dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginRight="8dp"
                         android:gravity="bottom"
-                        android:textColorHint="@color/colorWhite"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/textView2">
+                        android:textColorHint="@color/colorWhite">
 
                         <EditText
                             android:id="@+id/EtNamaLengkap"
@@ -62,7 +100,33 @@
                             android:textColorHighlight="@color/colorPrimaryDark"
                             android:textColorHint="@color/colorPrimaryDark"
                             android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textStyle="normal" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/TILInstansi"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginRight="8dp"
+                        android:gravity="bottom"
+                        android:textColorHint="@color/colorWhite">
+
+                        <EditText
+                            android:id="@+id/EtInstansi"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:background="@drawable/bg_gradient_info"
+                            android:fontFamily="@font/asap_bold"
+                            android:hint="Instansi (opsional)"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:padding="10dp"
+                            android:textColor="@color/colorWhite"
+                            android:textColorHighlight="@color/colorPrimaryDark"
+                            android:textColorHint="@color/colorPrimaryDark"
+                            android:textSize="16sp"
+                            android:textStyle="normal" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -73,9 +137,7 @@
                         android:layout_marginRight="8dp"
                         android:gravity="bottom"
                         android:textColorHint="@color/colorWhite"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/TILNamaLengkap">
+                        android:visibility="gone">
 
                         <EditText
                             android:id="@+id/EtEmail"
@@ -103,9 +165,7 @@
                         android:layout_marginRight="8dp"
                         android:gravity="bottom"
                         android:textColorHint="@color/colorWhite"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/TILEmail">
+                        android:visibility="gone">
 
                         <EditText
                             android:id="@+id/EtAlamat"
@@ -124,49 +184,6 @@
                             android:textStyle="bold" />
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <Button
-                        android:id="@+id/BtnDaftar"
-                        android:layout_width="0dp"
-                        android:layout_height="40dp"
-                        android:layout_marginTop="16dp"
-                        android:background="@drawable/bg_gradient_warning"
-                        android:fontFamily="@font/asap_bold"
-                        android:padding="10dp"
-                        android:shadowColor="@android:color/transparent"
-                        android:text="Daftar"
-                        android:textColor="@color/colorWhite"
-                        android:textStyle="bold"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/TILConfPassword" />
-
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/asap_bold"
-                        android:text="Daftar"
-                        android:textColor="#2F2F30"
-                        android:textSize="22sp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/ImvLogo" />
-
-                    <TextView
-                        android:id="@+id/TxvLogin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:clickable="true"
-                        android:fontFamily="@font/asap_bold"
-                        android:gravity="center"
-                        android:linksClickable="true"
-                        android:text="Login"
-                        android:textSize="12sp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/BtnDaftar" />
-
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/TILusername"
                         android:layout_width="match_parent"
@@ -174,11 +191,7 @@
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
                         android:gravity="bottom"
-                        android:textColorHint="@color/colorWhite"
-                        app:layout_constraintBottom_toTopOf="@id/TILPassword"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/TILAlamat">
+                        android:textColorHint="@color/colorWhite">
 
                         <EditText
                             android:id="@+id/userName"
@@ -198,16 +211,12 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/TILPassword"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
-                        android:layout_marginBottom="8dp"
                         android:gravity="bottom"
-                        android:textColorHint="@color/colorWhite"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/TILusername">
+                        android:textColorHint="@color/colorWhite">
 
                         <EditText
                             android:id="@+id/EtPassword"
@@ -228,17 +237,13 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/TILConfPassword"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:layout_marginLeft="8dp"
                         android:layout_marginRight="8dp"
                         android:layout_marginBottom="8dp"
                         android:gravity="bottom"
-                        android:textColorHint="@color/colorWhite"
-                        app:layout_constraintBottom_toTopOf="@id/BtnDaftar"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/TILPassword">
+                        android:textColorHint="@color/colorWhite">
 
                         <EditText
                             android:id="@+id/EtConfPassword"
@@ -255,18 +260,36 @@
                             android:textColorHint="@color/colorPrimaryDark"
                             android:textSize="16sp"
                             android:textStyle="bold" />
+
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <ImageView
-                        android:id="@+id/ImvLogo"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_logo" />
+                    <Button
+                        android:id="@+id/BtnDaftar"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@drawable/bg_gradient_warning"
+                        android:fontFamily="@font/asap_bold"
+                        android:padding="10dp"
+                        android:shadowColor="@android:color/transparent"
+                        android:text="Daftar"
+                        android:textColor="@color/colorWhite"
+                        android:textStyle="bold" />
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/TxvLogin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="8dp"
+                        android:clickable="true"
+                        android:fontFamily="@font/asap_bold"
+                        android:gravity="center"
+                        android:linksClickable="true"
+                        android:text="Login"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
             </ScrollView>
 
         </androidx.cardview.widget.CardView>

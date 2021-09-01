@@ -74,6 +74,7 @@
                 android:layout_width="200dp"
                 android:layout_height="200dp"
                 android:layout_gravity="center|center_vertical"
+                android:layout_marginTop="20dp"
                 android:scaleType="centerInside"
                 app:srcCompat="@drawable/ic_logo" />
 
@@ -81,11 +82,12 @@
                 android:id="@+id/TxvAppName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:fontFamily="@font/acme"
                 android:gravity="center"
-                android:text="Artakita"
+                android:text="Manajemen Aset Tanah \n Kabupaten Kebumen"
                 android:textColor="@color/gray_900"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/TxvAppDescription"

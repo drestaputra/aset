@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -22,13 +23,15 @@ import com.github.razir.progressbutton.DrawableButtonExtensionsKt;
 import com.github.razir.progressbutton.ProgressParams;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
+import dresta.putra.aset.AboutActivity;
 import dresta.putra.aset.ResponsePojo;
+import dresta.putra.aset.daftar.DaftarActivity;
+import dresta.putra.aset.user.UserPojo;
 import dresta.putra.aset.MainActivity;
 import dresta.putra.aset.PrefManager;
 import dresta.putra.aset.R;
 import dresta.putra.aset.RetrofitClientInstance;
-import kotlin.Unit;
-import kotlin.jvm.functions.Function1;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
 
     interface MyAPIService {
         @FormUrlEncoded
-        @POST("api/login/kolektor")
+        @POST("api/login/user")
         Call<LoginResponsePojo> getDatapengguna(@Field("username") String username, @Field("password") String password);
         @FormUrlEncoded
         @POST("api/login/forget_password")
@@ -59,14 +62,16 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        ImageView IvBack = findViewById(R.id.IvBack);
+        ImageView IvInfo = findViewById(R.id.IvInfo);
         myAPIService = RetrofitClientInstance.getRetrofitInstance(LoginActivity.this).create(MyAPIService.class);
-        IvBack.setOnClickListener(new View.OnClickListener() {
+        IvInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                Intent Iinfo = new Intent(LoginActivity.this, AboutActivity.class);
+                startActivity(Iinfo);
             }
         });
+
         bottom_sheet = findViewById(R.id.bottom_sheet);
         EtEmail = findViewById(R.id.EtEmail);
         sheetBehavior = BottomSheetBehavior.from(bottom_sheet);
@@ -80,24 +85,14 @@ public class LoginActivity extends AppCompatActivity {
         v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
         prefManager = new PrefManager(this);
-        Boolean loggedInIdMahasiswa= prefManager.isKolektorLoggedIn();
+        Boolean loggedInIdMahasiswa= prefManager.isUserLoggedIn();
         if (loggedInIdMahasiswa) {
             startActivity(new Intent(this, MainActivity.class));
             finish();
         }
 
-        BtnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                validateUserData();
-            }
-        });
-        TxvForgetPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-            }
-        });
+        BtnLogin.setOnClickListener(view -> validateUserData());
+        TxvForgetPass.setOnClickListener(v -> sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED));
         BtnKirim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -110,19 +105,17 @@ public class LoginActivity extends AppCompatActivity {
                 sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
             }
         });
+        TextView TxvRegister = findViewById(R.id.TxvRegister);
+        TxvRegister.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, DaftarActivity.class);
+            startActivity(intent);
+        });
 
 
 
     }
     private void kirim(final Button button){
-        DrawableButtonExtensionsKt.showProgress(button, new Function1<ProgressParams, Unit>() {
-            @Override
-            public Unit invoke(ProgressParams progressParams) {
-                progressParams.setButtonTextRes(R.string.loading);
-                progressParams.setProgressColor(Color.BLACK);
-                return Unit.INSTANCE;
-            }
-        });
+
         String EtEmails = EtEmail.getText().toString();
         button.setEnabled(false);
         if (TextUtils.isEmpty(EtEmails)) {
@@ -215,11 +208,10 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call<LoginResponsePojo> call, Response<LoginResponsePojo> response) {
-
                 if (response.body() != null) {
                     progressDoalog.dismiss();
                     if(response.body().getStatus()==200){
-                        set_sess(response.body().getData().getId_kolektor(),response.body().getData().getUsername(),password);
+                        set_sess(response.body().getData().getId_user(),response.body().getData().getUsername(),password, response.body().getData());
                         Intent IHome = new Intent(LoginActivity.this,MainActivity.class);
                         finish();
                         startActivity(IHome);
@@ -230,14 +222,16 @@ public class LoginActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<LoginResponsePojo> call, Throwable throwable) {
+                Log.d("tesdebug", String.valueOf(throwable));
                 progressDoalog.dismiss();
                 Toast.makeText(LoginActivity.this, "Gagal Login, Coba Lagi", Toast.LENGTH_LONG).show();
             }
         });
 
     }
-    public void set_sess(String id_kolektor,String username,String password){
-        prefManager.storeDataKolektor(id_kolektor,username,password);
+    public void set_sess(String id_kolektor,String username,String password, UserPojo userPojo){
+        prefManager.storeDataUser(id_kolektor,username,password);
+        prefManager.setUserPojo(userPojo);
     }
 
 

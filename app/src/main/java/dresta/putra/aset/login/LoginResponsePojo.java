@@ -2,15 +2,17 @@ package dresta.putra.aset.login;
 
 import com.google.gson.annotations.SerializedName;
 
+import dresta.putra.aset.user.UserPojo;
+
 public class LoginResponsePojo {
     @SerializedName("status")
     int status;
     @SerializedName("msg")
     String msg;
     @SerializedName("data")
-    KolektorPojo data;
+    UserPojo data;
 
-    public LoginResponsePojo(int status, String msg, KolektorPojo data) {
+    public LoginResponsePojo(int status, String msg, UserPojo data) {
         this.status = status;
         this.msg = msg;
         this.data = data;
@@ -32,11 +34,11 @@ public class LoginResponsePojo {
         this.msg = msg;
     }
 
-    public KolektorPojo getData() {
+    public UserPojo getData() {
         return data;
     }
 
-    public void setData(KolektorPojo data) {
+    public void setData(UserPojo data) {
         this.data = data;
     }
 }

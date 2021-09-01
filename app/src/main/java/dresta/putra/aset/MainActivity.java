@@ -1,5 +1,6 @@
 package dresta.putra.aset;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,14 +18,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
+
 import dresta.putra.aset.fragment.FragmentFive;
-import dresta.putra.aset.fragment.FragmentRiwayatSimpanan;
-import dresta.putra.aset.fragment.FragmentDaftarNasabah;
-import dresta.putra.aset.fragment.FragmentAngsuran;
+import dresta.putra.aset.fragment.FragmentKontak;
+import dresta.putra.aset.fragment.FragmentPeta;
+import dresta.putra.aset.fragment.FragmentAset;
+import dresta.putra.aset.login.LoginActivity;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,9 +38,9 @@ import retrofit2.http.GET;
 
 public class MainActivity extends AppCompatActivity {
     final Fragment fragment1 = new HomeFragment();
-    final Fragment fragment2 = new FragmentAngsuran();
-    final Fragment fragment3 = new FragmentDaftarNasabah();
-    final Fragment fragment4 = new FragmentRiwayatSimpanan();
+    final Fragment fragment2 = new FragmentAset();
+    final Fragment fragment3 = new FragmentPeta();
+    final Fragment fragment4 = new FragmentKontak();
     final Fragment fragment5 = new FragmentFive();
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = fragment1;
@@ -52,10 +57,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         final BottomNavigationView navigation = findViewById(R.id.navigation);
-        BottomNavigationViewHelper.disableShiftMode(navigation);
+//        BottomNavigationViewHelper.disableShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         prefManager = new PrefManager(MainActivity.this);
+        if (!prefManager.isUserLoggedIn()){
+            Intent Iback= new Intent(MainActivity.this, LoginActivity.class);
+            Iback.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(Iback);
+            MainActivity.this.finish();
+        }
         apiMainActivity = RetrofitClientInstance.getRetrofitInstance(MainActivity.this).create(APIMainActivity.class);
         FloatingActionButton Fab= findViewById(R.id.Fab);
         Fab.setOnClickListener(new View.OnClickListener() {
@@ -63,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 fm.beginTransaction().detach(active).attach(fragment3).commit();
-                navigation.setSelectedItemId(R.id.navigation_transaksi);
+                navigation.setSelectedItemId(R.id.navigation_peta);
                 active = fragment3;
             }
         });
@@ -120,15 +132,15 @@ public class MainActivity extends AppCompatActivity {
                     fm.beginTransaction().detach(active).attach(fragment1).commit();
                     active = fragment1;
                     return true;
-                case R.id.navigation_kategori:
+                case R.id.navigation_aset:
                     fm.beginTransaction().detach(active).attach(fragment2).commit();
                     active = fragment2;
                     return true;
-                case R.id.navigation_transaksi:
+                case R.id.navigation_peta:
                     fm.beginTransaction().detach(active).attach(fragment3).commit();
                     active = fragment3;
                     return true;
-                case R.id.navigation_riwayat_simpanan:
+                case R.id.navigation_kontak:
                     fm.beginTransaction().detach(active).attach(fragment4).commit();
                     active = fragment4;
                     return true;

@@ -3,6 +3,7 @@ package dresta.putra.aset;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -11,7 +12,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import dresta.putra.aset.nasabah.NasabahPojo;
+import dresta.putra.aset.kontak.KontakPojo;
+import dresta.putra.aset.user.UserPojo;
 
 
 public class PrefManager {
@@ -23,21 +25,24 @@ public class PrefManager {
      private static final String PASSWORD = "password";
      private static final String LAST_LOGIN = "LAST_LOGIN";
      private static final String NO_PEGAWAI = "no_pegawai";
-     private static final String ID_KOLEKTOR = "id_kolektor";
+     private static final String ID_USER = "id_user";
      private static final String NAMA_LENGKAP = "nama_lengkap";
      private static final String ID_KOPERASI = "id_koperasi";
      private static final String NO_HP = "no_hp";
      private static final String EMAIL = "email";
      private static final String ALAMAT = "alamat";
      private static final String KECAMATAN = "kecamatan";
-     private static final String KABUPATEN = "id_kolektor";
+     private static final String KABUPATEN = "id_user";
      private static final String PROVINSI = "provinsi";
      private static final String WARGA_NEGARA = "warga_negara";
      private static final String STATUS = "status";
      private static final String TGL_BERGABUNG = "tgl_bergabung";
      private static PrefManager mInstance;
+     private UserPojo userPojo;
+     private KontakPojo kontakPojo;
 //     offline mode TAG
-    private static final String NASABAHPOJO = "nasabahpojo";
+    private static final String USERPOJO = "userpojo";
+    private static final String KONTAKPOJO = "kontakpojo";
 
     // shared pref mode
     int PRIVATE_MODE = 0;
@@ -68,10 +73,10 @@ public class PrefManager {
         editor.putString(USERNAME, names);
         editor.commit();
     }
-    public void storeDataKolektor(String id_kolektor,String username, String password) {
+    public void storeDataUser(String id_user,String username, String password) {
         SharedPreferences sharedPreferences = _context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(ID_KOLEKTOR, id_kolektor);
+        editor.putString(ID_USER, id_user);
         editor.putString(USERNAME, username);
         editor.putLong(LAST_LOGIN,System.currentTimeMillis()/ 1000L);
         editor.putString(PASSWORD,password);
@@ -96,29 +101,29 @@ public class PrefManager {
 
 
 
-    public boolean isKolektorLoggedIn() {
+    public boolean isUserLoggedIn() {
         SharedPreferences sharedPreferences = _context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         //tambah 24 jam
         long expiredToken = getLastLogin() + 86400;
-        if ((System.currentTimeMillis()/ 1000L)>expiredToken && LoggedInIdKolektor()!=null){
+        if ((System.currentTimeMillis()/ 1000L)>expiredToken && LoggedInIdUser()!=null){
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.clear();
             editor.apply();
             setFirstTimeLaunch(false);
             return false;
         }else{
-            return sharedPreferences.getString(ID_KOLEKTOR, null) != null;
+            return sharedPreferences.getString(ID_USER, null) != null;
         }
     }
 
 
 
     //find logged in user
-    public String LoggedInIdKolektor() {
+    public String LoggedInIdUser() {
         SharedPreferences sharedPreferences = _context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        return sharedPreferences.getString(ID_KOLEKTOR, null);
+        return sharedPreferences.getString(ID_USER, null);
     }
-    public String LoggedInKolektorUsername() {
+    public String LoggedInUserUsername() {
         SharedPreferences sharedPreferences = _context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(USERNAME, null);
     }
@@ -144,29 +149,47 @@ public class PrefManager {
         setFirstTimeLaunch(false);
         _context.startActivity(new Intent(_context, WelcomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
     }
-    
-    public List<NasabahPojo> getNasabahPojos(String nama_nasabah, String no_nasabah, String username, String pencarian, int page, int perPage){
-        List<NasabahPojo> nasabahPojos = new ArrayList<>();
-        List<NasabahPojo> mFinalList=new ArrayList<>();
+    public void setUserPojo(UserPojo userPojoP){
         SharedPreferences sharedPreferences = _context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        String serializedObject = sharedPreferences.getString(NASABAHPOJO, null);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        Type type = new TypeToken<UserPojo>(){}.getType();
+        editor.putString(USERPOJO, gson.toJson(userPojoP,type));
+        editor.commit();
+
+    }
+    
+    public UserPojo getUserPojo(){
+        userPojo = new UserPojo();
+        SharedPreferences sharedPreferences = _context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        String serializedObject = sharedPreferences.getString(USERPOJO, null);
         if (serializedObject != null) {
             Gson gson = new Gson();
-            Type type = new TypeToken<List<NasabahPojo>>(){}.getType();
-            nasabahPojos = gson.fromJson(serializedObject, type);
-            for(int i=0; i<nasabahPojos.size();i++){
-                if (nasabahPojos.get(i).getKelurahan().toLowerCase().contains(pencarian.toLowerCase())
-                        || nasabahPojos.get(i).getNama_usaha().toLowerCase().contains(pencarian.toLowerCase())
-                        || nasabahPojos.get(i).getNama_nasabah().toLowerCase().contains(nama_nasabah.toLowerCase())
-                        || nasabahPojos.get(i).getUsername().toLowerCase().contains(username.toLowerCase())
-                )
-                {
-                    mFinalList.add(nasabahPojos.get(i));
-                }
-
-            }
+            Type type = new TypeToken<UserPojo>(){}.getType();
+            userPojo = gson.fromJson(serializedObject, type);
         }
-        return  mFinalList;
+        return  userPojo;
+    }
+    public void setKontakpojo(KontakPojo kontakPojoP){
+        SharedPreferences sharedPreferences = _context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        Type type = new TypeToken<KontakPojo>(){}.getType();
+        editor.putString(KONTAKPOJO, gson.toJson(kontakPojoP,type));
+        editor.commit();
+
+    }
+
+    public KontakPojo getKontakPojo(){
+        kontakPojo = new KontakPojo();
+        SharedPreferences sharedPreferences = _context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        String serializedObject = sharedPreferences.getString(KONTAKPOJO, null);
+        if (serializedObject != null) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<KontakPojo>(){}.getType();
+            kontakPojo = gson.fromJson(serializedObject, type);
+        }
+        return  kontakPojo;
     }
 
 }

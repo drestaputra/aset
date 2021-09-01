@@ -2,11 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'com.google.gms.google-services'
+
 android {
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
     defaultConfig {
-        applicationId "dresta.putra.artakita"
+        applicationId "dresta.putra.aset"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
@@ -31,6 +32,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.navigation:navigation-fragment:2.0.0'
     implementation 'androidx.navigation:navigation-ui:2.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.1'
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
@@ -60,6 +62,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:20.2.4'
     implementation 'pub.devrel:easypermissions:2.0.1'
     implementation 'com.github.javiersantos:AppUpdater:2.7'
+    implementation 'com.github.vimalcvs:Day-Night-Switch:1.0.3'
+    implementation 'com.google.maps.android:android-maps-utils:2.2.3'
+
+
 }
 repositories {
     maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }

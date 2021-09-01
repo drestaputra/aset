@@ -7,18 +7,18 @@
         android:iconTint="#FFB5B5B5"
         android:title="Home" />
     <item
-        android:id="@+id/navigation_kategori"
-        android:icon="@drawable/ic_history"
+        android:id="@+id/navigation_aset"
+        android:icon="@drawable/ic_folder"
         android:iconTint="#FFB5B5B5"
-        android:title="Angsuran" />
+        android:title="Aset" />
     <item
-        android:id="@+id/navigation_transaksi"
-        android:title="Tambah" />
+        android:id="@+id/navigation_peta"
+        android:title="Peta" />
     <item
-        android:id="@+id/navigation_riwayat_simpanan"
-        android:icon="@drawable/ic_history"
+        android:id="@+id/navigation_kontak"
+        android:icon="@drawable/ic_kontak"
         android:iconTint="#FFB5B5B5"
-        android:title="Simpanan" />
+        android:title="Kontak" />
     <item
         android:id="@+id/navigation_lainnya"
         android:icon="@drawable/ic_more"

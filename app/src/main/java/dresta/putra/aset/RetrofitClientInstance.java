@@ -1,6 +1,7 @@
 package dresta.putra.aset;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -16,7 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClientInstance {
     public static Retrofit retrofit;
-    public static final String BASE_URL = "https://api-artakita.drestaputra.com/";
+    public static final String BASE_URL = "https://siana.id/";
     public static PrefManager prefManager;
 
     public static Retrofit getRetrofitInstance(final Context context) {
@@ -28,8 +29,8 @@ public class RetrofitClientInstance {
                         @Override
                         public Response intercept(Chain chain) throws IOException {
                             prefManager = new PrefManager(context);
-                            String compactJws = Jwts.builder().claim("id_kolektor",prefManager.LoggedInIdKolektor()).claim("username",prefManager.LoggedInKolektorUsername()).claim("token_expired",prefManager.getTokenExpiredTime()).claim("password",prefManager.getPassword())
-                                    .signWith(SignatureAlgorithm.HS256, "4rta123".getBytes())
+                            String compactJws = Jwts.builder().claim("id_user",prefManager.LoggedInIdUser()).claim("username",prefManager.LoggedInUserUsername()).claim("token_expired",prefManager.getTokenExpiredTime()).claim("password",prefManager.getPassword())
+                                    .signWith(SignatureAlgorithm.HS256, "453tt4n4h".getBytes())
                                     .compact();
                             Request original = chain.request();
                             Request request = original.newBuilder()

@@ -28,7 +28,12 @@ import com.github.javiersantos.appupdater.AppUpdaterUtils;
 import com.github.javiersantos.appupdater.enums.AppUpdaterError;
 import com.github.javiersantos.appupdater.objects.Update;
 
-import dresta.putra.aset.informasi_program.InformasiProgramActivity;
+import dresta.putra.aset.berita.BeritaActivity;
+import dresta.putra.aset.kontak.KontakPojo;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.http.GET;
 
 public class WelcomeActivity extends AppCompatActivity {
 
@@ -40,6 +45,11 @@ public class WelcomeActivity extends AppCompatActivity {
     private Button btnSkip, btnNext;
     private PrefManager prefManager;
 
+    interface APIWelcome{
+        @GET("api/about/index")
+        Call<KontakPojo> getAbout();
+    }
+    private APIWelcome apiWelcome;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,7 +99,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 });
         appUpdaterUtils.start();
             if (getIntent().hasExtra("pushnotification")) {
-                Intent intent = new Intent(this, InformasiProgramActivity.class);
+                Intent intent = new Intent(this, BeritaActivity.class);
                 startActivity(intent);
             }
 
@@ -101,6 +111,21 @@ public class WelcomeActivity extends AppCompatActivity {
             launchHomeScreen();
             finish();
         }
+        apiWelcome = RetrofitClientInstance.getRetrofitInstance(WelcomeActivity.this).create(APIWelcome.class);
+        Call<KontakPojo> kontakPojoCall = apiWelcome.getAbout();
+        kontakPojoCall.enqueue(new Callback<KontakPojo>() {
+            @Override
+            public void onResponse(Call<KontakPojo> call, Response<KontakPojo> response) {
+                if (response.body() != null){
+                    prefManager.setKontakpojo(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<KontakPojo> call, Throwable t) {
+
+            }
+        });
 
         // membuat transparan notifikasi
         if (Build.VERSION.SDK_INT >= 21) {

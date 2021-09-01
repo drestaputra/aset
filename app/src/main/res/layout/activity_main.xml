@@ -60,7 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:focusable="true"
-            android:src="@drawable/ic_add_user"
+            android:src="@drawable/ic_map"
             android:tint="#FFFFFF"
             app:backgroundTint="@color/colorSecondary"
             app:elevation="2dp"

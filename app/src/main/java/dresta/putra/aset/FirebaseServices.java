@@ -18,7 +18,7 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import java.util.Map;
 
-import dresta.putra.aset.informasi_program.DetailInformasiProgramActivity;
+import dresta.putra.aset.berita.DetailBeritaActivity;
 
 public class FirebaseServices extends FirebaseMessagingService {
     private static final String TAG = "FCM Service";
@@ -58,7 +58,7 @@ public class FirebaseServices extends FirebaseMessagingService {
     }
 
     private void sendNotification(String title, String messageBody,String news_permalink) {
-        Intent intent = new Intent(getApplicationContext(), DetailInformasiProgramActivity.class);
+        Intent intent = new Intent(getApplicationContext(), DetailBeritaActivity.class);
         intent.putExtra("pushnotification", "yes");
         intent.putExtra("id_informasi_program", news_permalink);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
