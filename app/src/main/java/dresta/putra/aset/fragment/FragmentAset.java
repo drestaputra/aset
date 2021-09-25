@@ -43,7 +43,7 @@ public class FragmentAset extends Fragment {
     private boolean isLastPage = false;
     private int TOTAL_PAGES;
     private int TOTAL_RECORDS = 0;
-    private int PER_PAGE=5;
+    private int PER_PAGE=20;
     private int currentPage = PAGE_START;
     private SearchView mSearchView;
     private String query_pencarian="";

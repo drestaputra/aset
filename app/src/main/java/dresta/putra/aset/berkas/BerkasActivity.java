@@ -157,7 +157,7 @@ public class BerkasActivity extends AppCompatActivity implements EasyPermissions
 
             @Override
             public int getTotalRecords() {
-                return 0;
+                return TOTAL_RECORDS;
             }
 
             @Override

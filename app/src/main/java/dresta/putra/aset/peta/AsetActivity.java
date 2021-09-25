@@ -172,7 +172,7 @@ public class AsetActivity extends AppCompatActivity {
 
             @Override
             public int getTotalRecords() {
-                return 0;
+                return TOTAL_RECORDS;
             }
 
             @Override
