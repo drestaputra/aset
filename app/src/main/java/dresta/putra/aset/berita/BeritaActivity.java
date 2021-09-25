@@ -275,6 +275,7 @@ public class BeritaActivity extends AppCompatActivity {
      * by @{@link PaginationScrollListener} to load next page.
      */
     private Call<BeritaResponsePojo> BeritaResponsePojoCall() {
+
         return ServicePojo.getDataBerita(
                 query_pencarian,
                 currentPage,

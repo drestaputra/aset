@@ -185,29 +185,7 @@ public class AsetActivity extends AppCompatActivity {
                 return isLoading;
             }
         });
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(final String query) {
-                mShimmerViewContainer.setVisibility(View.VISIBLE);
-                mShimmerViewContainer.startShimmerAnimation();
-                query_pencarian=query;
-                if (!query.equals("")){
-                    init_pencarian();
-                }
-                return false;
-            }
-            @Override
-            public boolean onQueryTextChange(String query) {
 
-                mShimmerViewContainer.setVisibility(View.VISIBLE);
-                mShimmerViewContainer.startShimmerAnimation();
-                query_pencarian=query;
-                if (!query.equals("")){
-                     init_pencarian();
-                }
-                return false;
-            }
-        });
     }
 
     @Override
@@ -260,6 +238,31 @@ public class AsetActivity extends AppCompatActivity {
         });
 
     }
+    private void searchListener(){
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(final String query) {
+                mShimmerViewContainer.setVisibility(View.VISIBLE);
+                mShimmerViewContainer.startShimmerAnimation();
+                query_pencarian=query;
+//                if (!query.equals("")){
+                init_pencarian();
+//                }
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String query) {
+
+                mShimmerViewContainer.setVisibility(View.VISIBLE);
+                mShimmerViewContainer.startShimmerAnimation();
+                query_pencarian=query;
+//                if (!query.equals("")){
+                init_pencarian();
+//                }
+                return false;
+            }
+        });
+    }
     private void loadFirstPage() {
         PetaResponsePojoCall().enqueue(new Callback<PetaResponsePojo>() {
             @Override
@@ -286,6 +289,7 @@ public class AsetActivity extends AppCompatActivity {
                     Toast.makeText(AsetActivity.this, "Belum ada Data untuk saat ini", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                 }
+                searchListener();
             }
 
             @Override
@@ -294,7 +298,7 @@ public class AsetActivity extends AppCompatActivity {
                 mShimmerViewContainer.setVisibility(View.GONE);
                 progressBar.setVisibility(View.GONE);
                 t.printStackTrace();
-                adapter.clear();
+//                adapter.clear();
                 Toast.makeText(AsetActivity.this, "Belum ada data", Toast.LENGTH_SHORT).show();
 
             }

@@ -50,7 +50,9 @@ public class AdapterFotoMarker extends PagerAdapter {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.adapter_foto_marker, container, false);
         ImageView image = view.findViewById(R.id.image);
-        view.setPadding(0,0,10,0);
+        if (models.size() > 1){
+            view.setPadding(0,0,10,0);
+        }
 
 
         if (models.get(position).getFoto_aset() != null && models.get(position).getFoto_aset().length() > 0) {
@@ -81,7 +83,11 @@ public class AdapterFotoMarker extends PagerAdapter {
     }
     @Override
     public float getPageWidth(final int position) {
-        return 0.9f;
+        if (models.size() > 1) {
+            return 0.9f;
+        }else{
+            return 1f;
+        }
     }
 
     @Override

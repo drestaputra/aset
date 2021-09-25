@@ -124,30 +124,34 @@ public class FragmentAset extends Fragment {
                 return isLoading;
             }
         });
+
+        return view;
+    }
+    private  void searchListener(){
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(final String query) {
                 mShimmerViewContainer.setVisibility(View.VISIBLE);
                 mShimmerViewContainer.startShimmerAnimation();
                 query_pencarian=query;
-                if (!query.equals("")){
-                    init_pencarian();
-                }
+//                if (!query.equals("")){
+                init_pencarian();
+//                }
                 return false;
             }
+
             @Override
             public boolean onQueryTextChange(String query) {
-
                 mShimmerViewContainer.setVisibility(View.VISIBLE);
                 mShimmerViewContainer.startShimmerAnimation();
                 query_pencarian=query;
-                if (!query.equals("")){
-                    init_pencarian();
-                }
+//                bug ketika msearch diisi kemudian kosong, data menjadi kosong, sebenernya script dibawah untuk mengantisipasi double request ketika oncreate
+//                if (!query.equals("")){
+                init_pencarian();
+//                }
                 return false;
             }
         });
-        return view;
     }
 
 
@@ -188,6 +192,7 @@ public class FragmentAset extends Fragment {
                 mShimmerViewContainer.stopShimmerAnimation();
                 mShimmerViewContainer.setVisibility(View.GONE);
                 progressBar.setVisibility(View.GONE);
+                Log.d("tesdebug", t.toString());
                 Toast.makeText(getContext(), "Belum ada data", Toast.LENGTH_SHORT).show();
             }
         });
@@ -220,7 +225,9 @@ public class FragmentAset extends Fragment {
                     mShimmerViewContainer.setVisibility(View.GONE);
                     Toast.makeText(getContext(), "Belum ada Data untuk saat ini", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
+
                 }
+                searchListener();
             }
 
             @Override
@@ -230,6 +237,7 @@ public class FragmentAset extends Fragment {
                 mShimmerViewContainer.setVisibility(View.GONE);
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "Belum ada data", Toast.LENGTH_SHORT).show();
+                Log.d("tesdebug", t.toString());
             }
         });
 
@@ -274,7 +282,6 @@ public class FragmentAset extends Fragment {
      * by @{@link PaginationScrollListener} to load next page.
      */
     private Call<PetaResponsePojo> PetaResponsePojoCall() {
-
         Call<PetaResponsePojo> petaResponsePojoCall = null;
         if (prefManager.getKontakPojo() != null && prefManager.getKontakPojo().getApp_is_aset_show()!=null && prefManager.getKontakPojo().getApp_is_aset_show().equals("0")){
             Toast.makeText(getContext(), "Maaf saat ini halaman data aset sedang dibatasi aksesnya.", Toast.LENGTH_SHORT).show();
