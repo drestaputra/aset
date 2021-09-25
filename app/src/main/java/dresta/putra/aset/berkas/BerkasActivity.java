@@ -59,6 +59,7 @@ public class BerkasActivity extends AppCompatActivity implements EasyPermissions
     private boolean isLoading = false;
     private boolean isLastPage = false;
     private int TOTAL_PAGES;
+    private int TOTAL_RECORDS;
     private int PER_PAGE = 20;
     private int currentPage = PAGE_START;
     private SearchView mSearchView;
@@ -155,6 +156,11 @@ public class BerkasActivity extends AppCompatActivity implements EasyPermissions
             }
 
             @Override
+            public int getTotalRecords() {
+                return 0;
+            }
+
+            @Override
             public boolean isLastPage() {
                 return isLastPage;
             }
@@ -238,6 +244,7 @@ public class BerkasActivity extends AppCompatActivity implements EasyPermissions
                         List<BerkasPojo> results = fetchResults(response);
                         adapter.addAll(results);
                         TOTAL_PAGES = response.body().getTotalPage();
+                        TOTAL_RECORDS = response.body().getTotalRecords();
                         if (currentPage <= TOTAL_PAGES - 1) {
                             adapter.addLoadingFooter();
                         } else {
@@ -275,6 +282,7 @@ public class BerkasActivity extends AppCompatActivity implements EasyPermissions
                     progressBar.setVisibility(View.GONE);
                     adapter.addAll(results);
                     TOTAL_PAGES = response.body().getTotalPage();
+                    TOTAL_RECORDS = response.body().getTotalRecords();
 //
 //
                     if (currentPage <= TOTAL_PAGES - 1) {
@@ -311,7 +319,7 @@ public class BerkasActivity extends AppCompatActivity implements EasyPermissions
 
                 List<BerkasPojo> results = fetchResults(response);
                 adapter.addAll(results);
-
+                TOTAL_RECORDS = response.body().getTotalRecords();
                 if (currentPage != TOTAL_PAGES) adapter.addLoadingFooter();
                 else isLastPage = true;
             }

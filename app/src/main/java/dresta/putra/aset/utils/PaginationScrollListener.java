@@ -1,6 +1,8 @@
 package dresta.putra.aset.utils;
 
 
+import android.util.Log;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,11 +30,13 @@ public abstract class PaginationScrollListener extends RecyclerView.OnScrollList
         int visibleItemCount = layoutManager.getChildCount();
         int totalItemCount = layoutManager.getItemCount();
         int firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition();
-
         if (!isLoading() && !isLastPage()) {
+//        jika itemterload + posisiItemPertama >= totalitem (sudah scroll di posisi akhir)
+//            AND jika posisiItem1 lebih dari 0
+//            AND jika scroll tidak ada di page terakhir
             if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
                     && firstVisibleItemPosition >= 0
-                    && totalItemCount >= getTotalPageCount()) {
+                    && totalItemCount < getTotalRecords()) {
                 loadMoreItems();
             }
         }
@@ -78,6 +82,8 @@ public abstract class PaginationScrollListener extends RecyclerView.OnScrollList
     protected abstract void loadMoreItems();
 
     public abstract int getTotalPageCount();
+
+    public abstract int getTotalRecords();
 
     public abstract boolean isLastPage();
 

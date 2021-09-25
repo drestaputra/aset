@@ -47,11 +47,6 @@ public class MainActivity extends AppCompatActivity {
     PrefManager prefManager;
     private String id_owner = "";
 
-    interface  APIMainActivity{
-        @GET("api/about/id_owner")
-        Call<ResponsePojo> getIdOwner();
-    }
-    private APIMainActivity apiMainActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(Iback);
             MainActivity.this.finish();
         }
-        apiMainActivity = RetrofitClientInstance.getRetrofitInstance(MainActivity.this).create(APIMainActivity.class);
+
         FloatingActionButton Fab= findViewById(R.id.Fab);
         Fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,29 +87,11 @@ public class MainActivity extends AppCompatActivity {
         fm.beginTransaction().add(R.id.main_container, fragment1, "fragment1").detach(fragment1).commit();
         fm.beginTransaction().attach(fragment1).commit();
         getCurrentFirebaseToken();
-        getIdOwner();
+
         FirebaseMessaging.getInstance().subscribeToTopic("all");
     }
 
-    private void getIdOwner(){
-        Call<ResponsePojo> responsePojoCall =  apiMainActivity.getIdOwner();
-        responsePojoCall.enqueue(new Callback<ResponsePojo>() {
-            @Override
-            public void onResponse(Call<ResponsePojo> call, Response<ResponsePojo> response) {
-                if (response.body()!=null){
-                    if (response.body().getStatus()==200){
-                        id_owner = response.body().getMsg();
-                        FirebaseMessaging.getInstance().subscribeToTopic(id_owner);
-                    }
-                }
-            }
 
-            @Override
-            public void onFailure(Call<ResponsePojo> call, Throwable t) {
-
-            }
-        });
-    }
     private void changeStatusBarColor() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();

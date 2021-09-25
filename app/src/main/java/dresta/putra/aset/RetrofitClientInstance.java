@@ -33,6 +33,7 @@ public class RetrofitClientInstance {
                                     .signWith(SignatureAlgorithm.HS256, "453tt4n4h".getBytes())
                                     .compact();
                             Request original = chain.request();
+//                            Log.d("tesdebug", compactJws);
                             Request request = original.newBuilder()
                                     .header("Content-Type", "application/json")
                                     .header("Authorization", compactJws)

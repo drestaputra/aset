@@ -54,7 +54,7 @@
                         app:srcCompat="@drawable/ic_logo" />
 
                     <TextView
-                        android:id="@+id/textView2"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -91,7 +91,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
                             android:background="@drawable/bg_gradient_info"
-                            android:fontFamily="@font/asap_bold"
+                            android:fontFamily="sans-serif"
                             android:hint="Nama Lengkap"
                             android:inputType="text"
                             android:maxLines="1"
@@ -99,8 +99,7 @@
                             android:textColor="@color/colorWhite"
                             android:textColorHighlight="@color/colorPrimaryDark"
                             android:textColorHint="@color/colorPrimaryDark"
-                            android:textSize="16sp"
-                            android:textStyle="normal" />
+                            android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -117,7 +116,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
                             android:background="@drawable/bg_gradient_info"
-                            android:fontFamily="@font/asap_bold"
+                            android:fontFamily="sans-serif"
                             android:hint="Instansi (opsional)"
                             android:inputType="text"
                             android:maxLines="1"
@@ -125,8 +124,7 @@
                             android:textColor="@color/colorWhite"
                             android:textColorHighlight="@color/colorPrimaryDark"
                             android:textColorHint="@color/colorPrimaryDark"
-                            android:textSize="16sp"
-                            android:textStyle="normal" />
+                            android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -144,7 +142,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
                             android:background="@drawable/bg_gradient_info"
-                            android:fontFamily="@font/asap_bold"
+                            android:fontFamily="@font/acme"
                             android:hint="Email"
                             android:inputType="textWebEmailAddress|text"
                             android:maxLines="1"
@@ -172,7 +170,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="65dp"
                             android:background="@drawable/bg_gradient_info"
-                            android:fontFamily="@font/asap_bold"
+                            android:fontFamily="@font/acme"
                             android:gravity="center_vertical"
                             android:hint="Alamat"
                             android:inputType="text"
@@ -198,7 +196,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
                             android:background="@drawable/bg_gradient_info"
-                            android:fontFamily="@font/asap_bold"
+                            android:fontFamily="sans-serif"
                             android:hint="Username"
                             android:inputType="text"
                             android:maxLines="1"
@@ -223,7 +221,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
                             android:background="@drawable/bg_gradient_info"
-                            android:fontFamily="@font/asap_bold"
+                            android:fontFamily="sans-serif"
                             android:hint="Password"
                             android:inputType="textPassword"
                             android:maxLines="1"
@@ -231,8 +229,7 @@
                             android:textColor="@color/colorWhite"
                             android:textColorHighlight="@color/colorPrimaryDark"
                             android:textColorHint="@color/colorPrimaryDark"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textSize="16sp" />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -250,7 +247,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
                             android:background="@drawable/bg_gradient_info"
-                            android:fontFamily="@font/asap_bold"
+                            android:fontFamily="sans-serif"
                             android:hint="Konfirmasi password"
                             android:inputType="textPassword"
                             android:maxLines="1"
@@ -258,8 +255,7 @@
                             android:textColor="@color/colorWhite"
                             android:textColorHighlight="@color/colorPrimaryDark"
                             android:textColorHint="@color/colorPrimaryDark"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
+                            android:textSize="16sp" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
