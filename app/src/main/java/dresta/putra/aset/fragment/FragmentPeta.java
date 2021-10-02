@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -267,7 +268,7 @@ public class FragmentPeta extends Fragment implements OnMapReadyCallback, Google
         return view;
     }
     public void initDataMarker(){
-
+        Log.d("tesdebug0", "onResponse: ");
         if (mMap !=null){
             mMap.clear();
             mapMarker =  mMap.addMarker(new MarkerOptions()
@@ -287,6 +288,7 @@ public class FragmentPeta extends Fragment implements OnMapReadyCallback, Google
                     if (response.body() != null){
 
                         if (response.body().getStatus() == 200){
+                            Log.d("tesdebug1", "onResponse: ");
                             petaPojos = response.body().getData();
                             mMap.setOnCameraIdleListener(clusterManager);
                             mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -328,7 +330,9 @@ public class FragmentPeta extends Fragment implements OnMapReadyCallback, Google
                         }
                     }
                 }
+                Log.d("tesdebug2", "onClusterItemClick: ");
                 if (markerPetaPojos != null){
+                    Log.d("tesdebug3", "onClusterItemClick: ");
                     adapter = new AdapterMarker(markerPetaPojos, Objects.requireNonNull(getActivity()).getApplicationContext());
                     viewPager.setAdapter(adapter);
                     viewPager.setPadding(0, 0, 30, 0);
