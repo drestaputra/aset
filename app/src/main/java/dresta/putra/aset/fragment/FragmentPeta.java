@@ -125,7 +125,7 @@ public class FragmentPeta extends Fragment implements OnMapReadyCallback, Google
 
     interface APIFragmentPeta{
         @FormUrlEncoded
-        @POST("api/aset/data_aset")
+        @POST("api/aset/data_marker_aset")
         Call<PetaResponsePojo> getDataAset(
                 @Field("pencarian") String pencarian,
                 @Field("page") int page,

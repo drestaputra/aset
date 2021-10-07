@@ -82,23 +82,23 @@ public class PaginationAdapterAset extends RecyclerView.Adapter<RecyclerView.Vie
                 }
                 Vh.title.setText(result.getNama_aset());
                 Vh.desc.setText(Html.fromHtml(result.getKeterangan()));
-                Vh.BtnDetail.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent Idetail = new Intent(context.getApplicationContext(), DetailAsetActivity.class);
-                        Idetail.putExtra("id_aset",result.getId_aset());
-                        Idetail.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(Idetail);
-                    }
+                Vh.BtnDetail.setOnClickListener(v -> {
+                    Intent Idetail = new Intent(context.getApplicationContext(), DetailAsetActivity.class);
+                    Idetail.putExtra("id_aset",result.getId_aset());
+                    Idetail.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(Idetail);
                 });
-                Vh.BtnMap.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent Idetail = new Intent(context.getApplicationContext(), DetailPetaActivity.class);
-                        Idetail.putExtra("id_aset",result.getId_aset());
-                        Idetail.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(Idetail);
-                    }
+                Vh.BtnMap.setOnClickListener(v -> {
+                    Intent Idetail = new Intent(context.getApplicationContext(), DetailPetaActivity.class);
+                    Idetail.putExtra("id_aset",result.getId_aset());
+                    Idetail.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(Idetail);
+                });
+                Vh.BtnStreetView.setOnClickListener( v -> {
+                    Intent Idetail = new Intent(context.getApplicationContext(), StreetViewActivity.class);
+                    Idetail.putExtra("id_aset",result.getId_aset());
+                    Idetail.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(Idetail);
                 });
 
                 //        slider
@@ -208,7 +208,7 @@ public class PaginationAdapterAset extends RecyclerView.Adapter<RecyclerView.Vie
     protected class PetaPojoVH extends RecyclerView.ViewHolder {
         private ViewPager viewPager;
         private Button BtnDetail;
-        private ImageView imageView,BtnMap;
+        private ImageView imageView,BtnMap, BtnStreetView;
         private TextView title,desc;
 
         public PetaPojoVH(@NonNull View itemView) {
@@ -219,6 +219,7 @@ public class PaginationAdapterAset extends RecyclerView.Adapter<RecyclerView.Vie
             imageView = itemView.findViewById(R.id.imageView);
             title = itemView.findViewById(R.id.title);
             desc = itemView.findViewById(R.id.desc);
+            BtnStreetView = itemView.findViewById(R.id.BtnStreetView);
         }
     }
 

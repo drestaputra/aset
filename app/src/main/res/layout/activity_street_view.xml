@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:translationZ="2dp">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/FabBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="250dp"
+            android:src="?attr/homeAsUpIndicator"
+            android:tint="@color/colorWhite"
+            app:backgroundTint="@color/blue_400" />
+
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="220dp" />
+
+        <!--        <FrameLayout-->
+        <!--            android:id="@+id/FrStreetView"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            android:layout_marginBottom="200dp"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintHorizontal_bias="0.0"-->
+        <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--            app:layout_constraintRight_toRightOf="parent"-->
+        <!--            app:layout_constraintTop_toTopOf="parent"-->
+        <!--            app:layout_constraintVertical_bias="0.0">-->
+
+        <!--        </FrameLayout>-->
+        <!--        <fragment-->
+        <!--            android:id="@+id/googleMapStreetView"-->
+        <!--            android:name="com.google.android.gms.maps.SupportStreetViewPanoramaFragment"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:orientation="vertical">-->
+
+        <!--        </fragment>-->
+
+        <FrameLayout
+            android:id="@+id/standard_bottom_sheet"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorTransparant"
+            android:backgroundTint="@color/colorTransparant"
+            android:backgroundTintMode="add"
+            android:translationZ="10dp"
+            app:behavior_peekHeight="240dp"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="-10dp"
+                android:translationZ="10dp"
+                app:cardCornerRadius="14dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorTransparant"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="70dp"
+                        android:layout_height="5dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="14dp"
+                        android:background="@drawable/corner_rad"
+                        android:backgroundTint="@color/gray_200" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_marginTop="12dp"
+                        android:clipToPadding="true"
+                        app:cardBackgroundColor="@color/colorTransparant"
+                        app:cardCornerRadius="14dp"
+                        app:cardElevation="3dp"
+                        app:cardUseCompatPadding="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp"
+                            android:orientation="vertical">
+
+                            <androidx.viewpager.widget.ViewPager
+                                android:id="@+id/viewPager"
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="0.75"
+                                android:background="@color/gray_100"
+                                android:overScrollMode="never"
+                                android:visibility="visible">
+
+                            </androidx.viewpager.widget.ViewPager>
+
+
+                        </LinearLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.20"
+                        android:background="@color/colorWhite"
+                        android:orientation="vertical"
+                        android:paddingStart="15dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="15dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="8dp">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:id="@+id/title"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:fontFamily="@font/asap"
+                                    android:singleLine="true"
+                                    android:text="Nama Aset"
+                                    android:textColor="#262626"
+                                    android:textSize="20sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/desc"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:drawablePadding="10dp"
+                                    android:ellipsize="end"
+                                    android:singleLine="true"
+                                    android:text="Keterangan aset ... "
+                                    android:textColor="@color/gray_700"
+                                    android:textSize="12sp" />
+
+                            </LinearLayout>
+
+                            <ImageView
+                                android:id="@+id/IvMap"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="16dp"
+                                android:background="@drawable/bg_gradient_info_8"
+                                android:backgroundTintMode="multiply"
+                                android:cropToPadding="true"
+                                android:elevation="5dp"
+                                android:padding="5dp"
+                                app:srcCompat="@drawable/ic_map" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:drawableLeft="@android:drawable/ic_menu_mylocation"
+                                    android:drawablePadding="10dp"
+                                    android:fontFamily="@font/asap_bold"
+                                    android:gravity="center_vertical"
+                                    android:text="Register : "
+                                    android:textColor="@color/gray_900"
+                                    app:drawableTint="@color/colorPrimaryDark" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/asap_bold"
+                                    android:gravity="start|center_vertical"
+                                    android:paddingStart="6dp"
+                                    android:text="000005"
+                                    android:textColor="@color/gray_600" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:drawableLeft="@android:drawable/ic_menu_today"
+                                    android:drawablePadding="10dp"
+                                    android:fontFamily="@font/asap_bold"
+                                    android:gravity="center_vertical"
+                                    android:text="Kode Barang : "
+                                    android:textColor="@color/gray_900"
+                                    app:drawableTint="@color/colorPrimaryDark" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/asap_bold"
+                                    android:gravity="start|center_vertical"
+                                    android:paddingStart="6dp"
+                                    android:text="01.01.01.01.001"
+                                    android:textColor="@color/gray_600" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:drawableLeft="@android:drawable/ic_menu_today"
+                                    android:drawablePadding="10dp"
+                                    android:fontFamily="@font/asap_bold"
+                                    android:gravity="center_vertical"
+                                    android:text="Tahun Perolehan : "
+                                    android:textColor="@color/gray_900"
+                                    app:drawableTint="@color/colorPrimaryDark" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/asap_bold"
+                                    android:gravity="start|center_vertical"
+                                    android:paddingStart="6dp"
+                                    android:text="1992"
+                                    android:textColor="@color/gray_600" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/view"
+                            android:layout_width="match_parent"
+                            android:layout_height="2dp"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            android:background="@drawable/corner_rad"
+                            android:backgroundTint="@color/gray_200" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:drawableLeft="@android:drawable/ic_menu_today"
+                                    android:drawablePadding="10dp"
+                                    android:fontFamily="@font/asap"
+                                    android:gravity="center_vertical"
+                                    android:text="Jalan Mayjend Sutoyo No. 6, Kel Bumirejo, Kebumen "
+                                    android:textColor="@color/gray_800"
+                                    app:drawableTint="@color/colorPrimaryDark" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:drawableLeft="@android:drawable/ic_menu_today"
+                                    android:drawablePadding="10dp"
+                                    android:fontFamily="@font/asap_bold"
+                                    android:gravity="center_vertical"
+                                    android:text="Jenis Hak : "
+                                    android:textColor="@color/gray_900"
+                                    app:drawableTint="@color/colorPrimaryDark" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/asap_bold"
+                                    android:gravity="start|center_vertical"
+                                    android:paddingStart="6dp"
+                                    android:text="Hak Pakai"
+                                    android:textColor="@color/gray_600" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:drawableLeft="@android:drawable/ic_menu_week"
+                                    android:drawablePadding="10dp"
+                                    android:fontFamily="@font/asap_bold"
+                                    android:gravity="center_vertical"
+                                    android:text="Tahun Perolehan : "
+                                    android:textColor="@color/gray_900"
+                                    app:drawableTint="@color/colorPrimaryDark" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/asap_bold"
+                                    android:gravity="start|center_vertical"
+                                    android:paddingStart="6dp"
+                                    android:text="1992"
+                                    android:textColor="@color/gray_600" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+        </FrameLayout>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    adap
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:layout_marginBottom="200dp"-->
+    <!--        android:orientation="vertical"-->
+    <!--        android:translationZ="-10dp">-->
+
+    <!--        <fragment-->
+    <!--            android:id="@+id/googleMapStreetView"-->
+    <!--            android:name="com.google.android.gms.maps.SupportStreetViewPanoramaFragment"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--            app:layout_constraintRight_toRightOf="parent"-->
+    <!--            app:layout_constraintTop_toTopOf="parent" />-->
+    <!--    </LinearLayout>-->
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
