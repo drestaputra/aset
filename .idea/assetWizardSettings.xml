@@ -37,7 +37,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="C:\Users\Dresta\AndroidStudioProjects\asset\app\src\main\res\drawable-hdpi\ic_360.png" />
+                                                <entry key="imagePath" value="C:\Users\Dresta\Pictures\icon\ic_360.png" />
                                                 <entry key="opacityPercent" value="80" />
                                                 <entry key="paddingPercent" value="5" />
                                               </map>
@@ -74,8 +74,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="C:\Users\Dresta\AndroidStudioProjects\asset\app\src\main\res\drawable-hdpi\ic_360.png" />
-                                      <entry key="outputName" value="ic_street_view" />
+                                      <entry key="imageAsset" value="C:\Users\Dresta\Pictures\icon\ic_360.png" />
+                                      <entry key="outputName" value="ic_360" />
                                       <entry key="theme" value="HOLO_DARK" />
                                       <entry key="themeColor" value="6a7bff" />
                                     </map>

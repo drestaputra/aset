@@ -6,13 +6,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -26,6 +27,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -54,8 +57,8 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
 import com.vimalcvs.switchdn.DayNightSwitch;
 import com.vimalcvs.switchdn.DayNightSwitchListener;
@@ -75,7 +78,6 @@ import java.util.Objects;
 
 import dresta.putra.aset.R;
 import dresta.putra.aset.RetrofitClientInstance;
-import dresta.putra.aset.fragment.FragmentPeta;
 import dresta.putra.aset.utils.DirectionsJSONParser;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -90,9 +92,7 @@ import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
     private AdapterMarker adapter;
-    private FloatingActionButton FabCurrentLocation;
     private SupportMapFragment MvPetaAset;
-    private SearchView searchView;
     final String TAG = "tesdebug";
     private String id_aset = "";
 
@@ -100,10 +100,6 @@ public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyC
     public Location mLocation;
     GoogleApiClient mGoogleApiClient;
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
-
-    private LocationRequest mLocationRequest;
-    private long UPDATE_INTERVAL = 15000;  /* 15 secs */
-    private long FASTEST_INTERVAL = 5000; /* 5 secs */
 
     private ArrayList<String> permissionsToRequest;
     private ArrayList<String> permissionsRejected = new ArrayList<>();
@@ -124,6 +120,9 @@ public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyC
     private FloatingActionButton FabDrawRoute;
     private LatLng mOrigin;
     private LatLng mDestination;
+    private CardView CvFotoAset;
+    FrameLayout BottomSheet;
+    BottomSheetBehavior bottomSheetBehavior;
 
 
     interface APIFragmentPeta {
@@ -146,23 +145,18 @@ public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyC
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        toolbar.setNavigationOnClickListener(v -> finish());
         id_aset = getIntent().getStringExtra("id_aset");
-        FabCurrentLocation = findViewById(R.id.FabCurrentLocation);
+        FloatingActionButton fabCurrentLocation = findViewById(R.id.FabCurrentLocation);
         FabDrawRoute = findViewById(R.id.FabDrawRoute);
-        searchView = findViewById(R.id.mSearchView);
+        SearchView searchView = findViewById(R.id.mSearchView);
+        CvFotoAset = findViewById(R.id.CvFotoAset);
+        BottomSheet = (FrameLayout) findViewById(R.id.BottomSheet);
+        bottomSheetBehavior = BottomSheetBehavior.from(BottomSheet);
 
-        FabDrawRoute.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mMap != null) {
-                    drawRoute();
-                }
+        FabDrawRoute.setOnClickListener(v -> {
+            if (mMap != null) {
+                drawRoute();
             }
         });
         apiFragmentPeta = RetrofitClientInstance.getRetrofitInstance(DetailPetaActivity.this).create(APIFragmentPeta.class);
@@ -231,7 +225,7 @@ public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyC
         permissionsToRequest = findUnAskedPermissions(permissions);
         //get the permissions we have asked for before but are not granted..
         //we will store this in a global list to access later.
-        FabCurrentLocation.setOnClickListener(new View.OnClickListener() {
+        fabCurrentLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 currentLocation();
@@ -268,14 +262,20 @@ public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyC
         });
         settingsrequest();
 
+        Button BtnStreetView = findViewById(R.id.BtnStreetView);
+        BtnStreetView.setOnClickListener(v->{
+            Intent intent = new Intent(DetailPetaActivity.this, StreetViewActivity.class);
+            intent.putExtra("id_aset", id_aset);
+            startActivity(intent);
+        });
+
         //        slider
 
     }
 
     public Bitmap resizeMapIcons(String iconName, int width, int height) {
         Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), getResources().getIdentifier(iconName, "drawable", getPackageName()));
-        Bitmap resizedBitmap = Bitmap.createScaledBitmap(imageBitmap, width, height, false);
-        return resizedBitmap;
+        return Bitmap.createScaledBitmap(imageBitmap, width, height, false);
     }
 
     public void initDataMarker() {
@@ -288,11 +288,21 @@ public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyC
         Call<PetaResponsePojo> petaResponsePojoCall = apiFragmentPeta.getDataAset(id_aset, pencarian, 0, 10000);
         petaResponsePojoCall.enqueue(new Callback<PetaResponsePojo>() {
             @Override
-            public void onResponse(Call<PetaResponsePojo> call, Response<PetaResponsePojo> response) {
+            public void onResponse(@NonNull Call<PetaResponsePojo> call, @NonNull Response<PetaResponsePojo> response) {
                 if (response.body() != null) {
                     if (response.body().getStatus() == 200 && response.body().getTotalRecords()>0) {
+                        Log.d(TAG, "onResponse: 1");
                         petaPojos = response.body().getData();
-                        clusterManager = new ClusterManager<PetaMarkerPojo>(DetailPetaActivity.this, mMap);
+                        if (petaPojos.get(0).getFoto_aset() == null){
+                            CvFotoAset.setVisibility(View.GONE);
+                            Log.d(TAG, "onResponse: 2");
+//
+                        }else{
+                            CvFotoAset.setVisibility(View.VISIBLE);
+                            Log.d(TAG, "onResponse: 3");
+
+                        }
+                        clusterManager = new ClusterManager<>(DetailPetaActivity.this, mMap);
                         mMap.setOnCameraIdleListener(clusterManager);
                         //      mMap.setOnMarkerClickListener(clusterManager);
 
@@ -305,12 +315,19 @@ public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyC
                         }
 
                     }
+                }else{
+                    Log.d(TAG, "onResponse: 4");
+                    Toast.makeText(DetailPetaActivity.this, "Detail Aset tidak ditemukan", Toast.LENGTH_LONG).show();
+                    finish();
+
                 }
+
             }
 
             @Override
-            public void onFailure(Call<PetaResponsePojo> call, Throwable t) {
-
+            public void onFailure(@NonNull Call<PetaResponsePojo> call, @NonNull Throwable t) {
+                Log.d(TAG, "onResponse: 5");
+                finish();
             }
         });
     }
@@ -333,7 +350,7 @@ public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyC
      * installed Google Play services and returned to the app.
      */
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(@NonNull GoogleMap googleMap) {
 
         mMap = googleMap;
 
@@ -395,7 +412,7 @@ public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyC
     }
 
     private ArrayList<String> findUnAskedPermissions(ArrayList<String> wanted) {
-        ArrayList<String> result = new ArrayList<String>();
+        ArrayList<String> result = new ArrayList<>();
 
         for (String perm : wanted) {
             if (!hasPermission(perm)) {
@@ -467,7 +484,7 @@ public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyC
                 LocationServices.SettingsApi.checkLocationSettings(mGoogleApiClient, builder.build());
         result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
             @Override
-            public void onResult(LocationSettingsResult result) {
+            public void onResult(@NonNull LocationSettingsResult result) {
                 final Status status = result.getStatus();
                 final LocationSettingsStates state = result.getLocationSettingsStates();
                 switch (status.getStatusCode()) {
@@ -584,9 +601,13 @@ public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyC
     }
 
     protected void startLocationUpdates() {
-        mLocationRequest = new LocationRequest();
+        LocationRequest mLocationRequest = new LocationRequest();
         mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        /* 15 secs */
+        long UPDATE_INTERVAL = 15000;
         mLocationRequest.setInterval(UPDATE_INTERVAL);
+        /* 5 secs */
+        long FASTEST_INTERVAL = 5000;
         mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
         if (ActivityCompat.checkSelfPermission(DetailPetaActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(DetailPetaActivity.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(DetailPetaActivity.this, "Enable Permissions", Toast.LENGTH_LONG).show();
@@ -688,8 +709,7 @@ public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyC
         }
         Location CurrLoc = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (CurrLoc != null){
-            LatLng latLng = new LatLng(CurrLoc.getLatitude(), CurrLoc.getLongitude());
-            mOrigin = latLng;
+            mOrigin = new LatLng(CurrLoc.getLatitude(), CurrLoc.getLongitude());
 
             // Getting URL to the Google Directions API
             String url = getDirectionsUrl(mOrigin, mDestination);
@@ -747,7 +767,7 @@ public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyC
 
             BufferedReader br = new BufferedReader(new InputStreamReader(iStream));
 
-            StringBuffer sb  = new StringBuffer();
+            StringBuilder sb  = new StringBuilder();
 
             String line = "";
             while( ( line = br.readLine())  != null){
@@ -758,7 +778,7 @@ public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyC
 
             br.close();
 
-        }catch(Exception e){
+        }catch(Exception ignored){
 
         }finally{
             iStream.close();
@@ -781,7 +801,7 @@ public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyC
             try{
                 // Fetching the data from web service
                 data = downloadUrl(url[0]);
-            }catch(Exception e){
+            }catch(Exception ignored){
 
             }
 
