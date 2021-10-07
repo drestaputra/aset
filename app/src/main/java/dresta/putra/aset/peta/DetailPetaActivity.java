@@ -290,7 +290,7 @@ public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyC
             @Override
             public void onResponse(Call<PetaResponsePojo> call, Response<PetaResponsePojo> response) {
                 if (response.body() != null) {
-                    if (response.body().getStatus() == 200) {
+                    if (response.body().getStatus() == 200 && response.body().getTotalRecords()>0) {
                         petaPojos = response.body().getData();
                         clusterManager = new ClusterManager<PetaMarkerPojo>(DetailPetaActivity.this, mMap);
                         mMap.setOnCameraIdleListener(clusterManager);

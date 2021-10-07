@@ -25,6 +25,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import dresta.putra.aset.R;
 import dresta.putra.aset.RetrofitClientInstance;
@@ -41,6 +42,8 @@ public class StreetViewActivity extends AppCompatActivity {
     WebView webView;
     private ViewPager viewPager;
     // George St, Sydney
+    private String lat = "-33.87365";
+    private String lon = "151.20689";
     private static final LatLng SYDNEY = new LatLng(-33.87365, 151.20689);
     private AdapterFotoMarker adapterFotoMarker;
     private StreetViewPanoramaView streetViewPanoramaView;
@@ -119,7 +122,8 @@ public class StreetViewActivity extends AppCompatActivity {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setAppCacheEnabled(true);
 //        String url=getIntent().getStringExtra("url");
-        String url= "https://www.google.com/maps/@-7.8013805,110.3647722,3a,75y,264.64h,79.17t/data=!3m6!1e1!3m4!1sS8pzmXVWA79BiQY5qmW-oQ!2e0!7i16384!8i8192!5m1!1e1";
+        String url= "http://maps.google.com/maps?q=&layer=c&cbll="+lat+","+lon+"&cbp=";
+        Log.d("tesdebug", "onCreate: "+url);
 
         webView.loadUrl(url);
 //        swipe.setRefreshing(true);
@@ -134,12 +138,10 @@ public class StreetViewActivity extends AppCompatActivity {
 
 
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-//                String url=getIntent().getStringExtra("url");
-//                String url= "https://www.google.com/maps/@-7.8057008,110.3847409,3a,75y,293.2h,55.74t/data=!3m7!1e1!3m5!1sApABV6NCLV8BkCjtNZWgog!2e0!6shttps:%2F%2Fstreetviewpixels-pa.googleapis.com%2Fv1%2Fthumbnail%3Fpanoid%3DApABV6NCLV8BkCjtNZWgog%26cb_client%3Dmaps_sv.tactile.gps%26w%3D203%26h%3D100%26yaw%3D182.28693%26pitch%3D0%26thumbfov%3D100!7i13312!8i6656";
-                String url= "https://youtube.com";
-                webView.setAlpha(0);
+                String url= "https://www.google.com/maps/@"+lat+","+lon+",15z";
+                webView.setAlpha(1);
                 webView.loadUrl(url);
-                Log.d("url", url);
+                Toast.makeText(StreetViewActivity.this, "Tampilan streetview tidak ditemukan", Toast.LENGTH_SHORT).show();
             }
 
             public void onLoadResource(WebView view, String url) { //Doesn't work
@@ -147,17 +149,13 @@ public class StreetViewActivity extends AppCompatActivity {
             }
 
             public void onPageFinished(WebView view, String url) {
-
-                //Hide the SwipeReefreshLayout
-//                progressBar.setVisibility(View.GONE);
-//                swipe.setRefreshing(false);
-                if (url.contains("sukses"))
+                if (url.contains("data"))
                 {
                     //call intent to navigate to activity
 //                    setResult(RESULT_OK, bundle);
-                    Intent Iback= new Intent(getApplication().getApplicationContext(), LoginActivity.class);
-                    Iback.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(Iback);
+//                    Intent Iback= new Intent(getApplication().getApplicationContext(), LoginActivity.class);
+//                    Iback.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//                    startActivity(Iback);
 //                    WebActivity.this.finish();
                 }
             }
@@ -186,7 +184,7 @@ public class StreetViewActivity extends AppCompatActivity {
     }
 
 
-//    @Override
+    //    @Override
 //    protected void onResume() {
 //        streetViewPanoramaView.onResume();
 //        super.onResume();
