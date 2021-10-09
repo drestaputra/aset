@@ -1,5 +1,6 @@
 package dresta.putra.aset.user;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -20,9 +21,7 @@ import retrofit2.Response;
 import retrofit2.http.GET;
 
 public class ProfilUserActivity extends AppCompatActivity {
-    private String id_nasabah;
-    private TextView TxvUsername, TxvEmail, TxvNamaUser, TxvNoHp, TxvAlamat, TxvProvinsi, TxvKabupaten, TxvKecamatan, Txvwarga_negara,TxvNoKtp, TxvNasabah,TxvPinjaman, TxvSimpanan;
-    private ImageView IvFotoNasabah,IvBack;
+    private TextView TxvUsername, TxvEmail, TxvNamaUser, TxvNoHp, TxvAlamat, TxvProvinsi, TxvKabupaten, TxvKecamatan;
     private UserPojo userPojo;
     private LinearLayout NoConn;
     private Button btRefresh;
@@ -37,12 +36,7 @@ public class ProfilUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profil_user);
         ImageView IvBack = findViewById(R.id.IvBack);
-        IvBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        IvBack.setOnClickListener(v -> finish());
         swipe = findViewById(R.id.swipe);
         TxvUsername = findViewById(R.id.TxvUsername);
         TxvEmail = findViewById(R.id.TxvEmail);
@@ -52,36 +46,26 @@ public class ProfilUserActivity extends AppCompatActivity {
         TxvProvinsi = findViewById(R.id.TxvProvinsi);
         TxvKabupaten = findViewById(R.id.TxvKabupaten);
         TxvKecamatan = findViewById(R.id.TxvKecamatan);
-        Txvwarga_negara = findViewById(R.id.Txvwarga_negara);
-        TxvNoKtp = findViewById(R.id.TxvNoKtp);
         NoConn = findViewById(R.id.NoConn);
         btRefresh = findViewById(R.id.btRefresh);
         servicePojo = RetrofitClientInstance.getRetrofitInstance(ProfilUserActivity.this).create(APIProfilUser.class);
         initDataProfil();
-        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
+        swipe.setOnRefreshListener(() -> {
                 initDataProfil();
                 swipe.setRefreshing(false);
             }
-        });
+        );
         ImageView IvEdit = findViewById(R.id.IvEdit);
-        IvEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent Iedit = new Intent(ProfilUserActivity.this,EditProfilUserActivity.class);
-                startActivity(Iedit);
-                overridePendingTransition(0,0);
-            }
+        IvEdit.setOnClickListener(v -> {
+            Intent Iedit = new Intent(ProfilUserActivity.this,EditProfilUserActivity.class);
+            startActivity(Iedit);
+            overridePendingTransition(0,0);
         });
         ImageView IvEditPassword = findViewById(R.id.IvEditPassword);
-        IvEditPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent Iedit = new Intent(ProfilUserActivity.this,EditPasswordUserActivity.class);
-                startActivity(Iedit);
-                overridePendingTransition(0,0);
-            }
+        IvEditPassword.setOnClickListener(v -> {
+            Intent Iedit = new Intent(ProfilUserActivity.this,EditPasswordUserActivity.class);
+            startActivity(Iedit);
+            overridePendingTransition(0,0);
         });
     }
 
@@ -95,7 +79,7 @@ public class ProfilUserActivity extends AppCompatActivity {
         Call<ProfilUserPojoResponse> userPojoCall = servicePojo.getProfil();
         userPojoCall.enqueue(new Callback<ProfilUserPojoResponse>() {
             @Override
-            public void onResponse(Call<ProfilUserPojoResponse> call, Response<ProfilUserPojoResponse> response) {
+            public void onResponse(@NonNull Call<ProfilUserPojoResponse> call, @NonNull Response<ProfilUserPojoResponse> response) {
                 if (response.body() != null) {
                     if (response.body().getStatus() == 200) {
                         NoConn.setVisibility(View.GONE);
@@ -113,20 +97,15 @@ public class ProfilUserActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ProfilUserPojoResponse> call, Throwable t) {
+            public void onFailure(@NonNull Call<ProfilUserPojoResponse> call, @NonNull Throwable t) {
 //                Toast.makeText(ProfilUserActivity.this, "Terjadi gangguan jaringan", Toast.LENGTH_SHORT).show();
                 NoConn.setVisibility(View.VISIBLE);
-                btRefresh.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        initDataProfil();
-                    }
-                });
+                btRefresh.setOnClickListener(v -> initDataProfil());
             }
         });
     }
 
-    class ProfilUserPojoResponse{
+    static class ProfilUserPojoResponse{
         @SerializedName("status")
         Integer status;
         @SerializedName("msg")

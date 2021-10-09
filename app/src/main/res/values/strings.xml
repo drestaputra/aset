@@ -111,5 +111,7 @@
     <string name="loading">Proses...</string>
     <string name="progressRight">Selesai</string>
     <string name="google_maps_key">AIzaSyDRy-VhcfemZ4Z6wqDinzNN5jKOIKXtZRs</string>
+    <string name="google_maps_route_key">AIzaSyCRu1NFIGKsb76RUEVVtdIMUueCjVZsn_k</string>
+    <string name="base_url_gmap">https://maps.googleapis.com</string>
 
 </resources>

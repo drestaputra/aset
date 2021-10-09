@@ -9,12 +9,16 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.viewpager.widget.ViewPager;
 
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.StreetViewPanoramaOptions;
 import com.google.android.gms.maps.StreetViewPanoramaView;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import android.util.Log;
@@ -23,8 +27,10 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import dresta.putra.aset.R;
@@ -42,14 +48,16 @@ public class StreetViewActivity extends AppCompatActivity {
     WebView webView;
     private ViewPager viewPager;
     // George St, Sydney
-    private String lat = "-33.87365";
-    private String lon = "151.20689";
-    private static final LatLng SYDNEY = new LatLng(-33.87365, 151.20689);
+    private String lat = "0";
+    private String lon = "0";
+    private static final LatLng YOGYA = new LatLng(-33.87365, 151.20689);
     private AdapterFotoMarker adapterFotoMarker;
     private StreetViewPanoramaView streetViewPanoramaView;
-    private String id_aset = "5";
+    private String id_aset = "";
     private static final String STREETVIEW_BUNDLE_KEY = "StreetViewBundleKey";
     private FrameLayout frame;
+    TextView TxvNamaAset,TxvDeskripsiAset, TxvLuasAset, TxvAlamatAset, TxvHak;
+    private CardView CvFotoAset;
 
     interface APIStreetView{
         @FormUrlEncoded
@@ -62,17 +70,33 @@ public class StreetViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_street_view);
+        id_aset = getIntent().getStringExtra("id_aset");
+
+        CvFotoAset = findViewById(R.id.CvFotoAset);
+
+        TxvNamaAset = findViewById(R.id.TxvNamaAset);
+        TxvAlamatAset = findViewById(R.id.TxvAlamatAset);
+        TxvLuasAset = findViewById(R.id.TxvLuasAset);
+        TxvHak = findViewById(R.id.TxvHak);
+        viewPager = findViewById(R.id.viewPager);
+
 //        StreetViewPanoramaOptions options = new StreetViewPanoramaOptions();
         if (savedInstanceState == null) {
-//            options.position(SYDNEY);
+//            options.position(YOGYA);
         }
         FloatingActionButton FabBack = findViewById(R.id.FabBack);
         FabBack.setOnClickListener(v->{
             finish();
         });
-        ImageView IvMap =  findViewById(R.id.IvMap);
-        IvMap.setOnClickListener(v -> {
+        Button BtnMap =  findViewById(R.id.BtnMap);
+        BtnMap.setOnClickListener(v -> {
             Intent intent = new Intent(StreetViewActivity.this,DetailPetaActivity.class);
+            intent.putExtra("id_aset", id_aset);
+            startActivity(intent);
+        });
+        Button BtnDirection = findViewById(R.id.BtnDirection);
+        BtnDirection.setOnClickListener(v->{
+            Intent intent = new Intent(StreetViewActivity.this,RuteActivity.class);
             intent.putExtra("id_aset", id_aset);
             startActivity(intent);
         });
@@ -84,10 +108,25 @@ public class StreetViewActivity extends AppCompatActivity {
             public void onResponse(@NonNull Call<DetailAsetActivity.ResponseDetailAsetPojo> call, @NonNull Response<DetailAsetActivity.ResponseDetailAsetPojo> response) {
                 if (response.body() != null){
                     if (response.body().getStatus() == 200){
-
-                        if (response.body().getData().getFoto_aset() != null) {
-                            adapterFotoMarker = new AdapterFotoMarker(response.body().getData().getFoto_aset(), StreetViewActivity.this);
+                        PetaPojo petaPojo = response.body().getData();
+                        if (petaPojo.getFoto_aset() == null){
+                            CvFotoAset.setVisibility(View.GONE);
+                        }else{
+                            adapterFotoMarker = new AdapterFotoMarker(petaPojo.getFoto_aset(), StreetViewActivity.this);
                             viewPager.setAdapter(adapterFotoMarker);
+                            CvFotoAset.setVisibility(View.VISIBLE);
+                        }
+                        if (petaPojo != null) {
+                            TxvNamaAset.setText(petaPojo.getNama_aset());
+                            TxvAlamatAset.setText(petaPojo.getAlamat());
+                            TxvLuasAset.setText(petaPojo.getLuas_tanah()+" M persegi");
+                            TxvHak.setText(petaPojo.getJenis_hak());
+//                        init streetview
+                            lat = petaPojo.getLatitude();
+                            lon = petaPojo.getLongitude();
+                            initStreetView();
+                        }else{
+                            finish();
                         }
                     }
                 }
@@ -118,12 +157,34 @@ public class StreetViewActivity extends AppCompatActivity {
         }
 
         changeStatusBarColor();
-        webView = (WebView) findViewById(R.id.webView);
+
+
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(final int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+
+    }
+    private void initStreetView(){
+        webView = findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setAppCacheEnabled(true);
 //        String url=getIntent().getStringExtra("url");
         String url= "http://maps.google.com/maps?q=&layer=c&cbll="+lat+","+lon+"&cbp=";
-        Log.d("tesdebug", "onCreate: "+url);
 
         webView.loadUrl(url);
 //        swipe.setRefreshing(true);
@@ -149,40 +210,19 @@ public class StreetViewActivity extends AppCompatActivity {
             }
 
             public void onPageFinished(WebView view, String url) {
-                if (url.contains("data"))
-                {
+//                if (url.contains("data"))
+//                {
                     //call intent to navigate to activity
 //                    setResult(RESULT_OK, bundle);
 //                    Intent Iback= new Intent(getApplication().getApplicationContext(), LoginActivity.class);
 //                    Iback.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 //                    startActivity(Iback);
 //                    WebActivity.this.finish();
-                }
+//                }
             }
 
         });
-
-
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(final int position) {
-
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-
-            }
-        });
-
-
     }
-
 
     //    @Override
 //    protected void onResume() {

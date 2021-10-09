@@ -23,17 +23,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import dresta.putra.aset.fragment.FragmentFive;
 import dresta.putra.aset.fragment.FragmentKontak;
 import dresta.putra.aset.fragment.FragmentPeta;
 import dresta.putra.aset.fragment.FragmentAset;
 import dresta.putra.aset.login.LoginActivity;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.http.GET;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -45,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = fragment1;
     PrefManager prefManager;
-    private String id_owner = "";
+
 
 
     @Override
@@ -65,14 +60,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         FloatingActionButton Fab= findViewById(R.id.Fab);
-        Fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        Fab.setOnClickListener(view -> {
 
-                fm.beginTransaction().detach(active).attach(fragment3).commit();
-                navigation.setSelectedItemId(R.id.navigation_peta);
-                active = fragment3;
-            }
+            fm.beginTransaction().detach(active).attach(fragment3).commit();
+            navigation.setSelectedItemId(R.id.navigation_peta);
+            active = fragment3;
         });
 
         if (Build.VERSION.SDK_INT >= 21) {

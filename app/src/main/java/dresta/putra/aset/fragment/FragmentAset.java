@@ -21,6 +21,7 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import dresta.putra.aset.PrefManager;
 import dresta.putra.aset.R;
@@ -43,7 +44,6 @@ public class FragmentAset extends Fragment {
     private boolean isLastPage = false;
     private int TOTAL_PAGES;
     private int TOTAL_RECORDS = 0;
-    private int PER_PAGE=20;
     private int currentPage = PAGE_START;
     private SearchView mSearchView;
     private String query_pencarian="";
@@ -73,8 +73,8 @@ public class FragmentAset extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_aset, container, false);
         prefManager = new PrefManager(getContext());
 
-        results = new ArrayList<PetaPojo>();
-        linearLayoutManager = new GridLayoutManager(getActivity().getApplicationContext(),1);
+        results = new ArrayList<>();
+        linearLayoutManager = new GridLayoutManager(Objects.requireNonNull(getActivity()).getApplicationContext(),1);
         ServicePojo = RetrofitClientInstance.getRetrofitInstance(getActivity().getApplicationContext()).create(APIAset.class);
         progressBar = view.findViewById(R.id.main_progress);
         mSearchView = view.findViewById(R.id.mSearchView);
@@ -96,12 +96,7 @@ public class FragmentAset extends Fragment {
 
                 isLoading = true;
                 currentPage += 1;
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadNextPage();
-                    }
-                }, 1000);
+                new Handler().postDelayed(() -> loadNextPage(), 1000);
             }
 
             @Override
@@ -160,7 +155,7 @@ public class FragmentAset extends Fragment {
         isLastPage = false;
         PetaResponsePojoCall().enqueue(new Callback<PetaResponsePojo>() {
             @Override
-            public void onResponse(Call<PetaResponsePojo> call, Response<PetaResponsePojo> response) {
+            public void onResponse(@NonNull Call<PetaResponsePojo> call, @NonNull Response<PetaResponsePojo> response) {
 
                 if (response.body() != null) {
                     if(response.body().getStatus()==200 && response.body().getTotalRecords()!=0) {
@@ -169,7 +164,9 @@ public class FragmentAset extends Fragment {
                         progressBar.setVisibility(View.GONE);
                         adapter.clear();
                         results = fetchResults(response);
-                        adapter.addAll(results);
+                        if (results != null) {
+                            adapter.addAll(results);
+                        }
                         TOTAL_PAGES=response.body().getTotalPage();
                         TOTAL_RECORDS=response.body().getTotalRecords();
                         if (currentPage <= TOTAL_PAGES-1) {
@@ -201,7 +198,7 @@ public class FragmentAset extends Fragment {
         adapter.clear();
         PetaResponsePojoCall().enqueue(new Callback<PetaResponsePojo>() {
             @Override
-            public void onResponse(Call<PetaResponsePojo> call, Response<PetaResponsePojo> response) {
+            public void onResponse(@NonNull Call<PetaResponsePojo> call, @NonNull Response<PetaResponsePojo> response) {
                 // Got data. Send it to adapter
                 assert response.body() != null;
                 if(response.body().getStatus()==200 && response.body().getTotalRecords()!=0) {
@@ -230,7 +227,7 @@ public class FragmentAset extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<PetaResponsePojo> call, Throwable t) {
+            public void onFailure(@NonNull Call<PetaResponsePojo> call, @NonNull Throwable t) {
                 adapter.clear();
                 mShimmerViewContainer.stopShimmerAnimation();
                 mShimmerViewContainer.setVisibility(View.GONE);
@@ -244,21 +241,21 @@ public class FragmentAset extends Fragment {
     private void loadNextPage() {
         PetaResponsePojoCall().enqueue(new Callback<PetaResponsePojo>() {
             @Override
-            public void onResponse(Call<PetaResponsePojo> call, Response<PetaResponsePojo> response) {
+            public void onResponse(@NonNull Call<PetaResponsePojo> call, @NonNull Response<PetaResponsePojo> response) {
                 mShimmerViewContainer.stopShimmerAnimation();
                 mShimmerViewContainer.setVisibility(View.GONE);
                 adapter.removeLoadingFooter();
                 isLoading = false;
 
                 results = fetchResults(response);
-                adapter.addAll(results);
-                TOTAL_RECORDS = response.body().getTotalRecords();
+                adapter.addAll(Objects.requireNonNull(results));
+                TOTAL_RECORDS = response.body() != null ? response.body().getTotalRecords() : 0;
                 if (currentPage != TOTAL_PAGES) adapter.addLoadingFooter();
                 else isLastPage = true;
             }
 
             @Override
-            public void onFailure(Call<PetaResponsePojo> call, Throwable t) {
+            public void onFailure(@NonNull Call<PetaResponsePojo> call, @NonNull Throwable t) {
                 mShimmerViewContainer.stopShimmerAnimation();
                 mShimmerViewContainer.setVisibility(View.GONE);
                 progressBar.setVisibility(View.GONE);
@@ -281,7 +278,7 @@ public class FragmentAset extends Fragment {
      * by @{@link PaginationScrollListener} to load next page.
      */
     private Call<PetaResponsePojo> PetaResponsePojoCall() {
-        Call<PetaResponsePojo> petaResponsePojoCall = null;
+        Call<PetaResponsePojo> petaResponsePojoCall ;
         if (prefManager.getKontakPojo() != null && prefManager.getKontakPojo().getApp_is_aset_show()!=null && prefManager.getKontakPojo().getApp_is_aset_show().equals("0")){
             Toast.makeText(getContext(), "Maaf saat ini halaman data aset sedang dibatasi aksesnya.", Toast.LENGTH_SHORT).show();
             petaResponsePojoCall =  ServicePojo.getDataAset(
@@ -290,6 +287,7 @@ public class FragmentAset extends Fragment {
                     0
             );
         }else{
+            int PER_PAGE = 20;
             petaResponsePojoCall = ServicePojo.getDataAset(
                     query_pencarian,
                     currentPage,

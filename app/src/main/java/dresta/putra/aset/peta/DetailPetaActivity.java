@@ -9,6 +9,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.text.HtmlCompat;
+import androidx.viewpager.widget.ViewPager;
 
 import android.Manifest;
 import android.annotation.TargetApi;
@@ -25,10 +27,12 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -57,13 +61,13 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.maps.android.clustering.ClusterManager;
 import com.vimalcvs.switchdn.DayNightSwitch;
 import com.vimalcvs.switchdn.DayNightSwitchListener;
 
 import org.json.JSONObject;
+import org.jsoup.Jsoup;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -113,7 +117,7 @@ public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyC
     //    private NightModeButton nightModeButton;
     private DayNightSwitch dayNightSwitch;
     private boolean isNightMode = false;
-    private List<PetaPojo> petaPojos;
+    private PetaPojo petaPojos;
     private List<PetaPojo> markerPetaPojos = new ArrayList<>();
     private Marker mapMarker;
     private Polyline mPolyline;
@@ -121,19 +125,16 @@ public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyC
     private LatLng mOrigin;
     private LatLng mDestination;
     private CardView CvFotoAset;
-    FrameLayout BottomSheet;
-    BottomSheetBehavior bottomSheetBehavior;
+
+    TextView TxvNamaAset,TxvDeskripsiAset, TxvLuasAset, TxvAlamatAset, TxvHak;
+    private AdapterFotoMarker adapterFotoMarker;
+    private ViewPager viewPager;
 
 
     interface APIFragmentPeta {
         @FormUrlEncoded
-        @POST("api/aset/data_aset")
-        Call<PetaResponsePojo> getDataAset(
-                @Field("id_aset") String id_aset,
-                @Field("pencarian") String pencarian,
-                @Field("page") int page,
-                @Field("perPage") int perPage
-        );
+        @POST("api/aset/detail_aset")
+        Call<DetailAsetActivity.ResponseDetailAsetPojo> getDetailAset(@Field("id_aset") String id_aset);
     }
 
     private APIFragmentPeta apiFragmentPeta;
@@ -148,23 +149,33 @@ public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyC
         toolbar.setNavigationOnClickListener(v -> finish());
         id_aset = getIntent().getStringExtra("id_aset");
         FloatingActionButton fabCurrentLocation = findViewById(R.id.FabCurrentLocation);
-        FabDrawRoute = findViewById(R.id.FabDrawRoute);
+//        FabDrawRoute = findViewById(R.id.FabDrawRoute);
         SearchView searchView = findViewById(R.id.mSearchView);
         CvFotoAset = findViewById(R.id.CvFotoAset);
-        BottomSheet = (FrameLayout) findViewById(R.id.BottomSheet);
-        bottomSheetBehavior = BottomSheetBehavior.from(BottomSheet);
+        TxvNamaAset = findViewById(R.id.TxvNamaAset);
+        TxvAlamatAset = findViewById(R.id.TxvAlamatAset);
+        TxvLuasAset = findViewById(R.id.TxvLuasAset);
+        TxvHak = findViewById(R.id.TxvHak);
+        viewPager = findViewById(R.id.viewPager);
 
-        FabDrawRoute.setOnClickListener(v -> {
-            if (mMap != null) {
-                drawRoute();
-            }
-        });
+
+//        FabDrawRoute.setOnClickListener(v -> {
+//            if (mMap != null) {
+//                drawRoute();
+//            }
+//        });
         apiFragmentPeta = RetrofitClientInstance.getRetrofitInstance(DetailPetaActivity.this).create(APIFragmentPeta.class);
         if (mGoogleApiClient != null) {
             mGoogleApiClient.connect();
         } else {
             buildGoogleApiClient();
         }
+        Button BtnDirection = findViewById(R.id.BtnDirection);
+        BtnDirection.setOnClickListener(v->{
+            Intent intent = new Intent(DetailPetaActivity.this,RuteActivity.class);
+            intent.putExtra("id_aset", id_aset);
+            startActivity(intent);
+        });
         Geocoder geocoder = new Geocoder(DetailPetaActivity.this);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -285,38 +296,40 @@ public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyC
                     .title("").visible(false)
                     .snippet(""));
         }
-        Call<PetaResponsePojo> petaResponsePojoCall = apiFragmentPeta.getDataAset(id_aset, pencarian, 0, 10000);
-        petaResponsePojoCall.enqueue(new Callback<PetaResponsePojo>() {
+        Call<DetailAsetActivity.ResponseDetailAsetPojo> petaResponsePojoCall = apiFragmentPeta.getDetailAset(id_aset);
+        petaResponsePojoCall.enqueue(new Callback<DetailAsetActivity.ResponseDetailAsetPojo>() {
             @Override
-            public void onResponse(@NonNull Call<PetaResponsePojo> call, @NonNull Response<PetaResponsePojo> response) {
+            public void onResponse(@NonNull Call<DetailAsetActivity.ResponseDetailAsetPojo> call, @NonNull Response<DetailAsetActivity.ResponseDetailAsetPojo> response) {
                 if (response.body() != null) {
-                    if (response.body().getStatus() == 200 && response.body().getTotalRecords()>0) {
-                        Log.d(TAG, "onResponse: 1");
+                    if (response.body().getStatus() == 200) {
                         petaPojos = response.body().getData();
-                        if (petaPojos.get(0).getFoto_aset() == null){
-                            CvFotoAset.setVisibility(View.GONE);
-                            Log.d(TAG, "onResponse: 2");
-//
-                        }else{
-                            CvFotoAset.setVisibility(View.VISIBLE);
-                            Log.d(TAG, "onResponse: 3");
 
+                        if (petaPojos.getFoto_aset() == null){
+                            CvFotoAset.setVisibility(View.GONE);
+                        }else{
+                            adapterFotoMarker = new AdapterFotoMarker(petaPojos.getFoto_aset(), DetailPetaActivity.this);
+                            viewPager.setAdapter(adapterFotoMarker);
+                            CvFotoAset.setVisibility(View.VISIBLE);
                         }
                         clusterManager = new ClusterManager<>(DetailPetaActivity.this, mMap);
                         mMap.setOnCameraIdleListener(clusterManager);
-                        //      mMap.setOnMarkerClickListener(clusterManager);
 
                         addItems(petaPojos);
-                        if (petaPojos.get(0) != null) {
-                            LatLng position = new LatLng(Double.parseDouble(petaPojos.get(0).getLatitude()), Double.parseDouble(petaPojos.get(0).getLongitude()));
+                        if (petaPojos != null) {
+                            TxvNamaAset.setText(petaPojos.getNama_aset());
+                            TxvAlamatAset.setText(petaPojos.getAlamat());
+                            TxvLuasAset.setText(petaPojos.getLuas_tanah()+" M persegi");
+                            TxvHak.setText(petaPojos.getJenis_hak());
+                            LatLng position = new LatLng(Double.parseDouble(petaPojos.getLatitude()), Double.parseDouble(petaPojos.getLongitude()));
                             mDestination = position;
                             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(position, 14);
                             mMap.animateCamera(cameraUpdate);
+                        }else{
+                            finish();
                         }
 
                     }
                 }else{
-                    Log.d(TAG, "onResponse: 4");
                     Toast.makeText(DetailPetaActivity.this, "Detail Aset tidak ditemukan", Toast.LENGTH_LONG).show();
                     finish();
 
@@ -325,8 +338,7 @@ public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyC
             }
 
             @Override
-            public void onFailure(@NonNull Call<PetaResponsePojo> call, @NonNull Throwable t) {
-                Log.d(TAG, "onResponse: 5");
+            public void onFailure(@NonNull Call<DetailAsetActivity.ResponseDetailAsetPojo> call, @NonNull Throwable t) {
                 finish();
             }
         });
@@ -517,20 +529,23 @@ public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyC
     private ClusterManager<PetaMarkerPojo> clusterManager;
 
 
-    private void addItems(List<PetaPojo> petaPojosParam) {
+    private void addItems(PetaPojo petaPojosParam) {
         // Set some lat/lng coordinates to start with.
         double lat = -7.989800;
         double lng = 111.377350;
         if (petaPojosParam != null) {
-            for (int i = 0; i < petaPojosParam.size(); i++) {
-                lat = Double.parseDouble(petaPojosParam.get(i).getLatitude());
-                lng = Double.parseDouble(petaPojosParam.get(i).getLongitude());
-                String namaAset = (petaPojosParam.get(i).getNama_aset().length() > 50) ? petaPojosParam.get(i).getNama_aset().substring(0, 49) : petaPojosParam.get(i).getNama_aset();
-                String keterangan = (petaPojosParam.get(i).getKeterangan().length() > 50) ? petaPojosParam.get(i).getKeterangan().substring(0, 49) : petaPojosParam.get(i).getKeterangan();
-
-                PetaMarkerPojo offsetItem = new PetaMarkerPojo(petaPojosParam.get(i).getId_aset(), lat, lng, namaAset, keterangan);
+                lat = Double.parseDouble(petaPojosParam.getLatitude());
+                lng = Double.parseDouble(petaPojosParam.getLongitude());
+                String namaAset = (petaPojosParam.getNama_aset().length() > 50) ? petaPojosParam.getNama_aset().substring(0, 49) : petaPojosParam.getNama_aset();
+                String keterangan = petaPojosParam.getKeterangan();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    keterangan =  Html.fromHtml(keterangan, HtmlCompat.FROM_HTML_MODE_LEGACY).toString();
+                }else{
+                    keterangan = Jsoup.parse(keterangan).text();
+                }
+                keterangan = (keterangan.length() > 50) ? keterangan.substring(0, 49) : keterangan;
+                PetaMarkerPojo offsetItem = new PetaMarkerPojo(petaPojosParam.getId_aset(), lat, lng, namaAset, keterangan);
                 clusterManager.addItem(offsetItem);
-            }
         }
 
     }
@@ -633,38 +648,31 @@ public class DetailPetaActivity extends AppCompatActivity implements OnMapReadyC
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
-        switch (requestCode) {
+        if (requestCode == ALL_PERMISSIONS_RESULT) {
+            for (String perms : permissionsToRequest) {
+                if (!hasPermission(perms)) {
+                    permissionsRejected.add(perms);
+                }
+            }
 
-            case ALL_PERMISSIONS_RESULT:
-                for (String perms : permissionsToRequest) {
-                    if (!hasPermission(perms)) {
-                        permissionsRejected.add(perms);
+            if (permissionsRejected.size() > 0) {
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (shouldShowRequestPermissionRationale(permissionsRejected.get(0))) {
+                        showMessageOKCancel("Aplikasi ini membutuhkan akses agar semua fitur berjalan normal. Izinkan akses?",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        requestPermissions(permissionsRejected.toArray(new String[0]), ALL_PERMISSIONS_RESULT);
+                                    }
+                                });
                     }
                 }
 
-                if (permissionsRejected.size() > 0) {
-
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (shouldShowRequestPermissionRationale(permissionsRejected.get(0))) {
-                            showMessageOKCancel("Aplikasi ini membutuhkan akses agar semua fitur berjalan normal. Izinkan akses?",
-                                    new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialog, int which) {
-                                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                                                requestPermissions(permissionsRejected.toArray(new String[permissionsRejected.size()]), ALL_PERMISSIONS_RESULT);
-                                            }
-                                        }
-                                    });
-                            return;
-                        }
-                    }
-
-                }
-
-                break;
+            }
         }
 
     }

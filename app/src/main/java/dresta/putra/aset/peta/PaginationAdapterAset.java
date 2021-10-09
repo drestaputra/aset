@@ -100,6 +100,12 @@ public class PaginationAdapterAset extends RecyclerView.Adapter<RecyclerView.Vie
                     Idetail.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(Idetail);
                 });
+                Vh.BtnRute.setOnClickListener( v -> {
+                    Intent Idetail = new Intent(context.getApplicationContext(), RuteActivity.class);
+                    Idetail.putExtra("id_aset",result.getId_aset());
+                    Idetail.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(Idetail);
+                });
 
                 //        slider
                 Vh.viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -208,7 +214,7 @@ public class PaginationAdapterAset extends RecyclerView.Adapter<RecyclerView.Vie
     protected class PetaPojoVH extends RecyclerView.ViewHolder {
         private ViewPager viewPager;
         private Button BtnDetail;
-        private ImageView imageView,BtnMap, BtnStreetView;
+        private ImageView imageView,BtnMap, BtnStreetView, BtnRute;
         private TextView title,desc;
 
         public PetaPojoVH(@NonNull View itemView) {
@@ -220,6 +226,7 @@ public class PaginationAdapterAset extends RecyclerView.Adapter<RecyclerView.Vie
             title = itemView.findViewById(R.id.title);
             desc = itemView.findViewById(R.id.desc);
             BtnStreetView = itemView.findViewById(R.id.BtnStreetView);
+            BtnRute = itemView.findViewById(R.id.BtnRute);
         }
     }
 

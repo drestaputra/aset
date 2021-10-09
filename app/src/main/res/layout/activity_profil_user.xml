@@ -201,44 +201,6 @@
                             </LinearLayout>
 
                             <ImageView
-                                android:id="@+id/imageView6"
-                                android:layout_width="match_parent"
-                                android:layout_height="2dp"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginEnd="8dp"
-                                android:tint="#CACACA"
-                                app:srcCompat="@drawable/bg_indicator" />
-
-                            <LinearLayout
-                                android:id="@+id/LlJenisKelamin"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginStart="6dp"
-                                android:orientation="vertical"
-                                android:padding="4dp">
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-
-                                    android:gravity="center_vertical"
-                                    android:text="No. KTP"
-                                    android:textSize="11sp" />
-
-                                <TextView
-                                    android:id="@+id/TxvNoKtp"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:fontFamily="@font/lato"
-                                    android:gravity="center_vertical"
-                                    android:textColor="@color/gray_800"
-                                    android:textSize="14sp"
-                                    android:textStyle="bold" />
-                            </LinearLayout>
-
-                            <ImageView
                                 android:id="@+id/imageView7"
                                 android:layout_width="match_parent"
                                 android:layout_height="2dp"

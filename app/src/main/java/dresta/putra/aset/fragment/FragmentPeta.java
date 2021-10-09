@@ -19,9 +19,11 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.text.HtmlCompat;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,6 +59,8 @@ import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
 import com.vimalcvs.switchdn.DayNightSwitch;
 import com.vimalcvs.switchdn.DayNightSwitchListener;
+
+import org.jsoup.Jsoup;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -223,7 +227,7 @@ public class FragmentPeta extends Fragment implements OnMapReadyCallback, Google
 
 
             if (permissionsToRequest.size() > 0)
-                requestPermissions(permissionsToRequest.toArray(new String[permissionsToRequest.size()]), ALL_PERMISSIONS_RESULT);
+                requestPermissions(permissionsToRequest.toArray(new String[0]), ALL_PERMISSIONS_RESULT);
         }
 
         // R.id.map is a FrameLayout, not a Fragment
@@ -238,10 +242,10 @@ public class FragmentPeta extends Fragment implements OnMapReadyCallback, Google
                     if(is_night){
                         isNightMode = true;
                         //Function to change color
-                        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity().getApplicationContext(), R.raw.mapstyle_night));
+                        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(Objects.requireNonNull(getActivity()).getApplicationContext(), R.raw.mapstyle_night));
                     }else {
                         isNightMode = false;
-                        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(getActivity().getApplicationContext(), R.raw.mapstyle_standar));
+                        mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(Objects.requireNonNull(getActivity()).getApplicationContext(), R.raw.mapstyle_standar));
                     }
                 }
             }
@@ -268,7 +272,7 @@ public class FragmentPeta extends Fragment implements OnMapReadyCallback, Google
         return view;
     }
     public void initDataMarker(){
-        Log.d("tesdebug0", "onResponse: ");
+
         if (mMap !=null){
             mMap.clear();
             mapMarker =  mMap.addMarker(new MarkerOptions()
@@ -288,7 +292,7 @@ public class FragmentPeta extends Fragment implements OnMapReadyCallback, Google
                     if (response.body() != null){
 
                         if (response.body().getStatus() == 200){
-                            Log.d("tesdebug1", "onResponse: ");
+
                             petaPojos = response.body().getData();
                             mMap.setOnCameraIdleListener(clusterManager);
                             mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
@@ -330,9 +334,9 @@ public class FragmentPeta extends Fragment implements OnMapReadyCallback, Google
                         }
                     }
                 }
-                Log.d("tesdebug2", "onClusterItemClick: ");
+
                 if (markerPetaPojos != null){
-                    Log.d("tesdebug3", "onClusterItemClick: ");
+
                     adapter = new AdapterMarker(markerPetaPojos, Objects.requireNonNull(getActivity()).getApplicationContext());
                     viewPager.setAdapter(adapter);
                     viewPager.setPadding(0, 0, 30, 0);
@@ -353,7 +357,13 @@ public class FragmentPeta extends Fragment implements OnMapReadyCallback, Google
                 lat = Double.parseDouble(petaPojosParam.get(i).getLatitude());
                 lng = Double.parseDouble(petaPojosParam.get(i).getLongitude());
                 String namaAset = (petaPojosParam.get(i).getNama_aset().length() > 50) ? petaPojosParam.get(i).getNama_aset().substring(0, 49) : petaPojosParam.get(i).getNama_aset();
-                String keterangan = (petaPojosParam.get(i).getKeterangan().length() > 50) ? petaPojosParam.get(i).getKeterangan().substring(0, 49) : petaPojosParam.get(i).getKeterangan();
+                String keterangan = petaPojosParam.get(i).getKeterangan();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    keterangan =  Html.fromHtml(keterangan, HtmlCompat.FROM_HTML_MODE_LEGACY).toString();
+                }else{
+                    keterangan = Jsoup.parse(keterangan).text();
+                }
+                keterangan = (keterangan.length() > 50) ? keterangan.substring(0, 49) : keterangan;
 
                 PetaMarkerPojo offsetItem = new PetaMarkerPojo(petaPojosParam.get(i).getId_aset(), lat, lng, namaAset, keterangan);
                 clusterManager.addItem(offsetItem);

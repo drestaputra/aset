@@ -3,6 +3,7 @@ package dresta.putra.aset.peta;
 import android.content.Context;
 import android.content.Intent;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,7 @@ import dresta.putra.aset.slider.AdapterSlider;
 
 public class AdapterMarker extends PagerAdapter {
     private ViewPager viewPager;
-    private Button BtnDetail;
+
     private List<PetaPojo> models;
     private Context context;
     private AdapterFotoMarker adapterFotoMarker;
@@ -52,7 +53,7 @@ public class AdapterMarker extends PagerAdapter {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.adapter_marker, container, false);
         viewPager = view.findViewById(R.id.viewPager);
-        BtnDetail = view.findViewById(R.id.BtnDetail);
+
         ImageView imageView;
         TextView title, desc;
 
@@ -70,16 +71,35 @@ public class AdapterMarker extends PagerAdapter {
         }
         title.setText(models.get(position).getNama_aset());
         desc.setText(Html.fromHtml(models.get(position).getKeterangan()));
-
-        BtnDetail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentl= new Intent(context.getApplicationContext(), DetailAsetActivity.class);
-                intentl.putExtra("id_aset",models.get(position).getId_aset());
-                intentl.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intentl);
-            }
+        Button BtnDetail = view.findViewById(R.id.BtnDetail);
+        BtnDetail.setOnClickListener(v -> {
+            Intent intentl= new Intent(context.getApplicationContext(), DetailAsetActivity.class);
+            intentl.putExtra("id_aset",models.get(position).getId_aset());
+            intentl.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intentl);
         });
+        ImageView BtnMap = view.findViewById(R.id.BtnMap);
+        BtnMap.setOnClickListener(v->{
+            Intent intentl= new Intent(context.getApplicationContext(), DetailPetaActivity.class);
+            intentl.putExtra("id_aset",models.get(position).getId_aset());
+            intentl.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intentl);
+        });
+        ImageView BtnStreetView = view.findViewById(R.id.BtnStreetView);
+        BtnStreetView.setOnClickListener(v->{
+            Intent intentl= new Intent(context.getApplicationContext(), StreetViewActivity.class);
+            intentl.putExtra("id_aset",models.get(position).getId_aset());
+            intentl.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intentl);
+        });
+        ImageView BtnRute = view.findViewById(R.id.BtnRute);
+        BtnRute.setOnClickListener(v->{
+            Intent intentl= new Intent(context.getApplicationContext(), RuteActivity.class);
+            intentl.putExtra("id_aset",models.get(position).getId_aset());
+            intentl.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intentl);
+        });
+
 
         container.addView(view, 0);
         //        slider
