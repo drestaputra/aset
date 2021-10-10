@@ -36,11 +36,10 @@ import retrofit2.http.POST;
 import dresta.putra.aset.R;
 public class DetailAsetActivity extends AppCompatActivity {
     private ViewPager viewPager;
-    ImageView ivGambarBerita;   
-    TextView TxvNamaAset, TxvKodeBarang, TxvRegister, TxvLuasTanah, TxvTahunPerolehan, TxvAlamat, TxvJenisHak,
-            TxvTanggalSertifikat, TxvNomorSertifikat, TxvPenggunaan, TxvAsalPerolehan, TxvHargaPerolehan;
+    ImageView ivGambarBerita;
+    private TextView TxvJarak, TxvNamaAset, TxvLuasAset, TxvAlamatAset, TxvHak;
 
-    ImageView BtnMap;
+    Button BtnMap, BtnStreetView, BtnRute;
     WebView WvKeterangan;
     Toolbar toolbar;
     private AdapterFotoMarker adapterFotoMarker;
@@ -58,38 +57,35 @@ public class DetailAsetActivity extends AppCompatActivity {
 
         viewPager = findViewById(R.id.viewPager);
         ivGambarBerita =  findViewById(R.id.IvGambarArtikel);
-        TxvNamaAset= findViewById(R.id.TxvNamaAset);
-        TxvKodeBarang = findViewById(R.id.TxvKodeBarang);
-        TxvRegister = findViewById(R.id.TxvRegister);
-        TxvLuasTanah = findViewById(R.id.TxvLuasTanah);
-        TxvTahunPerolehan = findViewById(R.id.TxvTahunPerolehan);
 
-        TxvAlamat = findViewById(R.id.TxvAlamat);
-        TxvJenisHak = findViewById(R.id.TxvJenisHak);
-        TxvTanggalSertifikat = findViewById(R.id.TxvTanggalSertifikat);
-        TxvNomorSertifikat = findViewById(R.id.TxvNomorSertifikat);
-        TxvPenggunaan = findViewById(R.id.TxvPenggunaan);
-        TxvAsalPerolehan = findViewById(R.id.TxvAsalPerolehan);
-        TxvHargaPerolehan = findViewById(R.id.TxvHargaPerolehan);
+        TxvNamaAset = findViewById(R.id.TxvNamaAset);
+        TxvLuasAset = findViewById(R.id.TxvLuasAset);
+        TxvAlamatAset = findViewById(R.id.TxvAlamatAset);
+        TxvHak = findViewById(R.id.TxvHak);
+
         BtnMap = findViewById(R.id.BtnMap);
+        BtnRute = findViewById(R.id.BtnRute);
+        BtnStreetView = findViewById(R.id.BtnStreetView);
         String id_aseti = getIntent().getStringExtra("id_aset");
         toolbar = findViewById(R.id.toolbar);
-        toolbar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
+        toolbar.setOnClickListener(view -> finish());
+        BtnMap.setOnClickListener(v -> {
+            Intent intentl= new Intent(DetailAsetActivity.this, DetailPetaActivity.class);
+            intentl.putExtra("id_aset", id_aseti);
+            startActivity(intentl);
         });
-        BtnMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentl= new Intent(DetailAsetActivity.this, DetailPetaActivity.class);
-                intentl.putExtra("id_aset", id_aseti);
-                startActivity(intentl);
-            }
+        BtnStreetView.setOnClickListener(v -> {
+            Intent intentl= new Intent(DetailAsetActivity.this, StreetViewActivity.class);
+            intentl.putExtra("id_aset", id_aseti);
+            startActivity(intentl);
+        });
+        BtnRute.setOnClickListener(v -> {
+            Intent intentl= new Intent(DetailAsetActivity.this, RuteActivity.class);
+            intentl.putExtra("id_aset", id_aseti);
+            startActivity(intentl);
         });
 
-        WvKeterangan = (WebView) findViewById(R.id.WvKeterangan);
+//        WvKeterangan = (WebView) findViewById(R.id.WvKeterangan);
 
         MyAPIService myAPIService = RetrofitClientInstance.getRetrofitInstance(getApplicationContext()).create(MyAPIService.class);
 
@@ -100,7 +96,11 @@ public class DetailAsetActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseDetailAsetPojo> call, Response<ResponseDetailAsetPojo> response) {
                 if (response.body() != null) {
                     if (response.body().getStatus()==200){
+
                         PetaPojo informasiProgramPojo = response.body().getData();
+                        if (informasiProgramPojo.getLatitude() != null && informasiProgramPojo.getLongitude() != null){
+                            BtnMap.setVisibility(View.VISIBLE);
+                        }
                         showDetailAset(informasiProgramPojo);
                     }
                 }else{
@@ -135,23 +135,20 @@ public class DetailAsetActivity extends AppCompatActivity {
             adapterFotoMarker = new AdapterFotoMarker(details.getFoto_aset(), DetailAsetActivity.this);
             viewPager.setAdapter(adapterFotoMarker);
         }
+        if ((details.getLatitude() != null && !details.getLatitude().equals("0")) && (details.getLongitude() != null && !details.getLongitude().equals("0"))){
+            BtnMap.setVisibility(View.VISIBLE);
+            BtnRute.setVisibility(View.VISIBLE);
+            BtnStreetView.setVisibility(View.VISIBLE);
+        }else{
+            BtnMap.setVisibility(View.GONE);
+            BtnRute.setVisibility(View.GONE);
+            BtnStreetView.setVisibility(View.GONE);
+        }
 
         TxvNamaAset.setText(details.getNama_aset());
-        TxvKodeBarang.setText("Kode Barang: "+details.getKode_barang());
-        TxvRegister.setText("Register: "+details.getRegister());
-        TxvLuasTanah.setText("Luas tanah: "+details.getLuas_tanah()+" M persegi");
-        TxvTahunPerolehan.setText("Tahun Perolehan: "+details.getTahun_perolehan());
-        TxvAlamat.setText("Alamat: "+details.getAlamat());
-        TxvJenisHak.setText("Jenis Hak: "+details.getJenis_hak());
-        TxvTanggalSertifikat.setText("Tanggal Sertifikat: "+details.getTanggal_sertifikat());
-        TxvNomorSertifikat.setText("Nomor Sertifikat: "+details.getNomor_sertifikat());
-        TxvPenggunaan.setText("Pengunaan: "+details.getPenggunaan());
-        TxvAsalPerolehan.setText("Asal Perolehan: "+details.getAsal_perolehan());
-        TxvHargaPerolehan.setText("Harga Perolehan: "+details.getHarga_perolehan());
-
-//        // Set isi berita sebagai html ke WebView
-        WvKeterangan.loadData(details.getKeterangan(), "text/html; charset=utf-8", "UTF-8");
-//        WvIsiArtikel.loadDataWithBaseURL(null, details.getDeskripsi_informasi_program(), "text/html", "utf-8",null);
+        TxvLuasAset.setText(details.getLuas_tanah()+" meter persegi");
+        TxvAlamatAset.setText(details.getAlamat());
+        TxvHak.setText(details.getJenis_hak());
     }
 
     class ResponseDetailAsetPojo{

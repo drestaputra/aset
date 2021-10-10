@@ -300,7 +300,6 @@ public class RuteActivity extends AppCompatActivity implements OnMapReadyCallbac
         detailAsetPojoCall.enqueue(new Callback<DetailAsetActivity.ResponseDetailAsetPojo>() {
             @Override
             public void onResponse(@NonNull Call<DetailAsetActivity.ResponseDetailAsetPojo> call, @NonNull Response<DetailAsetActivity.ResponseDetailAsetPojo> response) {
-                Log.d("tesdebug3", response.raw().toString());
                 if (response.body() != null){
                     if (response.body().getStatus() == 200){
                         petaPojo = response.body().getData();
@@ -327,18 +326,18 @@ public class RuteActivity extends AppCompatActivity implements OnMapReadyCallbac
                             String lokasiDariS = String.valueOf(lokasiDari.latitude) + "," + String.valueOf(lokasiDari.longitude);
                             String lokasiKeS = String.valueOf(lokasiKe.latitude) + "," + String.valueOf(lokasiKe.longitude);
 
-//                            apiServices.getDirection(lokasiDariS, lokasiKeS, getString(R.string.google_maps_route_key))
-//                                    .enqueue(new Callback<DirectionResponses>() {
-//                                        @Override
-//                                        public void onResponse(@NonNull Call<DirectionResponses> call, @NonNull Response<DirectionResponses> response) {
-//                                            drawPolyline(response);
-//                                        }
-//
-//                                        @Override
-//                                        public void onFailure(@NonNull Call<DirectionResponses> call, @NonNull Throwable t) {
-//
-//                                        }
-//                                    });
+                            apiServices.getDirection(lokasiDariS, lokasiKeS, getString(R.string.google_maps_route_key))
+                                    .enqueue(new Callback<DirectionResponses>() {
+                                        @Override
+                                        public void onResponse(@NonNull Call<DirectionResponses> call, @NonNull Response<DirectionResponses> response) {
+                                            drawPolyline(response);
+                                        }
+
+                                        @Override
+                                        public void onFailure(@NonNull Call<DirectionResponses> call, @NonNull Throwable t) {
+
+                                        }
+                                    });
                         }else{
                             currentLocation();
                             createRute();

@@ -222,7 +222,6 @@ public class LoginActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<LoginResponsePojo> call, Throwable throwable) {
-                Log.d("tesdebug", String.valueOf(throwable));
                 progressDoalog.dismiss();
                 Toast.makeText(LoginActivity.this, "Gagal Login, Coba Lagi", Toast.LENGTH_LONG).show();
             }

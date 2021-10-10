@@ -233,7 +233,6 @@ public class FragmentAset extends Fragment {
                 mShimmerViewContainer.setVisibility(View.GONE);
                 progressBar.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "Belum ada data", Toast.LENGTH_SHORT).show();
-                Log.d("tesdebug", t.toString());
             }
         });
 

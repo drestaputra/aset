@@ -12,6 +12,28 @@
         android:layout_height="match_parent"
         android:translationZ="2dp">
 
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="220dp" >
+
+        </WebView>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@android:style/Widget.Material.Light.ProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="150dp"
+            android:indeterminate="true"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
+
+
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/FabBack"
             android:layout_width="wrap_content"
@@ -22,12 +44,6 @@
             android:src="?attr/homeAsUpIndicator"
             android:tint="@color/colorWhite"
             app:backgroundTint="@color/blue_400" />
-
-        <WebView
-            android:id="@+id/webView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="220dp" />
 
         <!--        <FrameLayout-->
         <!--            android:id="@+id/FrStreetView"-->

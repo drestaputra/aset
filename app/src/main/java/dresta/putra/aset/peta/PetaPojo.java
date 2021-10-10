@@ -153,7 +153,7 @@ public class PetaPojo {
     }
 
     public String getAlamat() {
-        return alamat;
+        return String.valueOf(alamat);
     }
 
     public void setAlamat(String alamat) {
@@ -161,7 +161,7 @@ public class PetaPojo {
     }
 
     public String getJenis_hak() {
-        return jenis_hak;
+        return String.valueOf(jenis_hak);
     }
 
     public void setJenis_hak(String jenis_hak) {
@@ -169,7 +169,7 @@ public class PetaPojo {
     }
 
     public String getPenggunaan() {
-        return penggunaan;
+        return String.valueOf(penggunaan);
     }
 
     public void setPenggunaan(String penggunaan) {
@@ -193,7 +193,7 @@ public class PetaPojo {
     }
 
     public String getKeterangan() {
-        return keterangan;
+        return String.valueOf(keterangan);
     }
 
     public void setKeterangan(String keterangan) {

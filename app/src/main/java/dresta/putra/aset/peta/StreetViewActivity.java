@@ -21,15 +21,21 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.webkit.CookieManager;
+import android.webkit.CookieSyncManager;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -58,6 +64,7 @@ public class StreetViewActivity extends AppCompatActivity {
     private FrameLayout frame;
     TextView TxvNamaAset,TxvDeskripsiAset, TxvLuasAset, TxvAlamatAset, TxvHak;
     private CardView CvFotoAset;
+    ProgressBar progressBar;
 
     interface APIStreetView{
         @FormUrlEncoded
@@ -79,7 +86,7 @@ public class StreetViewActivity extends AppCompatActivity {
         TxvLuasAset = findViewById(R.id.TxvLuasAset);
         TxvHak = findViewById(R.id.TxvHak);
         viewPager = findViewById(R.id.viewPager);
-
+        progressBar = findViewById(R.id.progressBar);
 //        StreetViewPanoramaOptions options = new StreetViewPanoramaOptions();
         if (savedInstanceState == null) {
 //            options.position(YOGYA);
@@ -186,21 +193,35 @@ public class StreetViewActivity extends AppCompatActivity {
 //        String url=getIntent().getStringExtra("url");
         String url= "http://maps.google.com/maps?q=&layer=c&cbll="+lat+","+lon+"&cbp=";
 
+        CookieSyncManager.createInstance(this);
+        CookieManager cookieManager = CookieManager.getInstance();
+        cookieManager.setAcceptCookie(false);
+        WebSettings ws = webView.getSettings();
+        ws.setSaveFormData(false);
+        ws.setAppCacheEnabled(false);
+        android.webkit.CookieManager.getInstance().removeAllCookie();
         webView.loadUrl(url);
+        webView.setAlpha(0);
+        progressBar.setVisibility(View.VISIBLE);
 //        swipe.setRefreshing(true);
         webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                return false;
+            }
 
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-//                progressBar.setVisibility(View.VISIBLE);
+                progressBar.setVisibility(View.VISIBLE);
             }
 
 
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 String url= "https://www.google.com/maps/@"+lat+","+lon+",15z";
                 webView.setAlpha(1);
+                progressBar.setVisibility(View.GONE);
                 webView.loadUrl(url);
                 Toast.makeText(StreetViewActivity.this, "Tampilan streetview tidak ditemukan", Toast.LENGTH_SHORT).show();
             }
@@ -210,15 +231,30 @@ public class StreetViewActivity extends AppCompatActivity {
             }
 
             public void onPageFinished(WebView view, String url) {
-//                if (url.contains("data"))
-//                {
-                    //call intent to navigate to activity
-//                    setResult(RESULT_OK, bundle);
-//                    Intent Iback= new Intent(getApplication().getApplicationContext(), LoginActivity.class);
-//                    Iback.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//                    startActivity(Iback);
-//                    WebActivity.this.finish();
-//                }
+                final Handler handler = new Handler(Looper.getMainLooper());
+                webView.setAlpha(1);
+                progressBar.setVisibility(View.GONE);
+                Log.d("tesdebug", url);
+//                handler.postDelayed(() -> {
+//                    if (url.contains("data"))
+//                    {
+//
+////                    call intent to navigate to activity
+////                    setResult(RESULT_OK, bundle);
+////                    Intent Iback= new Intent(getApplication().getApplicationContext(), LoginActivity.class);
+////                    Iback.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+////                    startActivity(Iback);
+////                    WebActivity.this.finish();
+//                    }else{
+//                        progressBar.setVisibility(View.GONE);
+//                        Intent intent = new Intent(StreetViewActivity.this, DetailPetaActivity.class);
+//                        intent.putExtra("id_aset",id_aset);
+//                        startActivity(intent);
+//                        finish();
+//                        Toast.makeText(StreetViewActivity.this, "Tampilan street view tidak tersedia", Toast.LENGTH_SHORT).show();
+//                    }
+//                }, 10000);
+
             }
 
         });

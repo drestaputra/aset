@@ -357,7 +357,8 @@ public class FragmentPeta extends Fragment implements OnMapReadyCallback, Google
                 lat = Double.parseDouble(petaPojosParam.get(i).getLatitude());
                 lng = Double.parseDouble(petaPojosParam.get(i).getLongitude());
                 String namaAset = (petaPojosParam.get(i).getNama_aset().length() > 50) ? petaPojosParam.get(i).getNama_aset().substring(0, 49) : petaPojosParam.get(i).getNama_aset();
-                String keterangan = petaPojosParam.get(i).getKeterangan();
+                String keterangan = String.valueOf(petaPojosParam.get(i).getKeterangan());
+
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                     keterangan =  Html.fromHtml(keterangan, HtmlCompat.FROM_HTML_MODE_LEGACY).toString();
                 }else{

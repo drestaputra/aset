@@ -345,7 +345,6 @@ public class PaginationAdapterBerkas extends RecyclerView.Adapter<RecyclerView.V
             mWakeLock.release();
             mProgressDialog.dismiss();
             if (result != null){
-                Log.d("tesdebug", "onPostExecute: "+result);
                 Toast.makeText(context,"Download Gagal ", Toast.LENGTH_LONG).show();
             }else{
                 Toast.makeText(context,"File berhasil terdownload."+((pathDownloaded != null) ? " Cek di "+pathDownloaded : ""), Toast.LENGTH_SHORT).show();

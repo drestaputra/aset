@@ -4,6 +4,7 @@ package dresta.putra.aset.peta;
 import android.content.Context;
 import android.content.Intent;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,6 +80,15 @@ public class PaginationAdapterAset extends RecyclerView.Adapter<RecyclerView.Vie
                 if (result.getFoto_aset() != null) {
                     adapterFotoMarker = new AdapterFotoMarker(result.getFoto_aset(), Objects.requireNonNull(context));
                     Vh.viewPager.setAdapter(adapterFotoMarker);
+                }
+                if (result.getLatitude() != null && !result.getLatitude().equals("0") && result.getLongitude() != null && !result.getLongitude().equals("0")){
+                    Vh.BtnRute.setVisibility(View.VISIBLE);
+                    Vh.BtnStreetView.setVisibility(View.VISIBLE);
+                    Vh.BtnMap.setVisibility(View.VISIBLE);
+                }else{
+                    Vh.BtnRute.setVisibility(View.GONE);
+                    Vh.BtnStreetView.setVisibility(View.GONE);
+                    Vh.BtnMap.setVisibility(View.GONE);
                 }
                 Vh.title.setText(result.getNama_aset());
                 Vh.desc.setText(Html.fromHtml(result.getKeterangan()));

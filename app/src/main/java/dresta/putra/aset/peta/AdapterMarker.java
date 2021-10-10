@@ -69,8 +69,9 @@ public class AdapterMarker extends PagerAdapter {
             adapterFotoMarker = new AdapterFotoMarker(models.get(position).getFoto_aset(), Objects.requireNonNull(context));
             viewPager.setAdapter(adapterFotoMarker);
         }
+
         title.setText(models.get(position).getNama_aset());
-        desc.setText(Html.fromHtml(models.get(position).getKeterangan()));
+        desc.setText(Html.fromHtml(String.valueOf(models.get(position).getKeterangan())));
         Button BtnDetail = view.findViewById(R.id.BtnDetail);
         BtnDetail.setOnClickListener(v -> {
             Intent intentl= new Intent(context.getApplicationContext(), DetailAsetActivity.class);
@@ -99,6 +100,15 @@ public class AdapterMarker extends PagerAdapter {
             intentl.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intentl);
         });
+        if ((models.get(position).getLatitude() != null && !models.get(position).getLatitude().equals("0")) && (models.get(position).getLongitude() != null && !models.get(position).getLongitude().equals("0"))){
+            BtnMap.setVisibility(View.VISIBLE);
+            BtnRute.setVisibility(View.VISIBLE);
+            BtnStreetView.setVisibility(View.VISIBLE);
+        }else{
+            BtnMap.setVisibility(View.GONE);
+            BtnRute.setVisibility(View.GONE);
+            BtnStreetView.setVisibility(View.GONE);
+        }
 
 
         container.addView(view, 0);

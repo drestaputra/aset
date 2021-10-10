@@ -201,7 +201,6 @@ public class BerkasActivity extends AppCompatActivity implements EasyPermissions
     }
     @Override
     public void onRequestPermissionsResult(final int requestCode, @NonNull final String[] permissions, @NonNull final int[] grantResults) {
-        Log.d("tesdebug", "onRequestPermissionsResult: ");
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {

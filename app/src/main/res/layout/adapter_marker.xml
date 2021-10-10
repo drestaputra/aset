@@ -92,6 +92,7 @@
         android:backgroundTintMode="multiply"
         android:padding="5dp"
         android:translationZ="10dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@id/cardView2"
         app:layout_constraintTop_toTopOf="@id/cardView2"
         app:srcCompat="@drawable/ic_map" />
@@ -106,6 +107,7 @@
         android:backgroundTintMode="multiply"
         android:padding="5dp"
         android:translationZ="10dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@id/cardView2"
         app:layout_constraintTop_toBottomOf="@id/BtnMap"
         app:srcCompat="@drawable/ic_street_view" />
@@ -119,6 +121,7 @@
         android:backgroundTintMode="multiply"
         android:padding="5dp"
         android:translationZ="10dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toStartOf="@id/BtnMap"
         app:layout_constraintTop_toTopOf="@+id/BtnMap"
         app:srcCompat="@drawable/ic_direction" />
