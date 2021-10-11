@@ -35,7 +35,9 @@
         <activity android:name=".berkas.BerkasActivity" />
         <activity android:name=".peta.AsetActivity" />
         <activity android:name=".peta.DetailPetaActivity" />
-        <activity android:name=".peta.DetailAsetActivity" />
+        <activity
+            android:name=".peta.DetailAsetActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
 
         <service
             android:name=".FirebaseServices"

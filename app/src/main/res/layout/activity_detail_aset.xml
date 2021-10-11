@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    >
+    android:fitsSystemWindows="true">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
@@ -53,6 +51,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/SvDetailAset"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true"
@@ -62,7 +61,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="500dp">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/CvHeader2"
@@ -71,6 +71,8 @@
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="6dp"
+                android:clipChildren="true"
+                android:clipToPadding="true"
                 app:cardCornerRadius="6dp"
                 app:cardUseCompatPadding="true">
 
@@ -79,7 +81,6 @@
                     android:layout_height="match_parent"
                     android:background="@color/colorTransparant"
                     android:orientation="vertical">
-
 
 
                     <LinearLayout
@@ -102,43 +103,43 @@
                                 android:id="@+id/BtnRute"
                                 android:layout_width="wrap_content"
                                 android:layout_height="35dp"
+                                android:layout_weight="1"
                                 android:background="@drawable/bg_gradient_success"
                                 android:drawableStart="@drawable/ic_direction"
                                 android:elevation="3dp"
                                 android:fontFamily="@font/asap_medium"
                                 android:text="Rute"
                                 android:textAllCaps="false"
-                                android:textColor="@color/colorWhite"
-                                android:visibility="gone" />
+                                android:textColor="@color/colorWhite" />
 
                             <Button
                                 android:id="@+id/BtnMap"
                                 android:layout_width="wrap_content"
                                 android:layout_height="35dp"
                                 android:layout_marginStart="10dp"
+                                android:layout_weight="1"
                                 android:background="@drawable/bg_gradient_success"
                                 android:drawableStart="@drawable/ic_map"
                                 android:elevation="3dp"
                                 android:fontFamily="@font/asap_medium"
                                 android:text="Peta"
                                 android:textAllCaps="false"
-                                android:textColor="@color/colorWhite"
-                                android:visibility="gone" />
+                                android:textColor="@color/colorWhite" />
 
                             <Button
                                 android:id="@+id/BtnStreetView"
                                 android:layout_width="wrap_content"
                                 android:layout_height="35dp"
                                 android:layout_marginStart="10dp"
+                                android:layout_weight="1"
                                 android:background="@drawable/bg_gradient_success"
                                 android:drawableStart="@drawable/ic_360"
                                 android:drawablePadding="8dp"
                                 android:elevation="3dp"
                                 android:fontFamily="@font/asap_medium"
-                                android:text="Street View"
+                                android:text="360 View"
                                 android:textAllCaps="false"
-                                android:textColor="@color/colorWhite"
-                                android:visibility="gone" />
+                                android:textColor="@color/colorWhite" />
 
                         </LinearLayout>
 
@@ -276,16 +277,69 @@
                             android:backgroundTint="@color/gray_200" />
 
                         <LinearLayout
-                            android:id="@+id/Ll"
+                            android:id="@+id/LlSaranPemanfaatan"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:layout_marginBottom="20dp"
+                            android:orientation="vertical"
+                            android:visibility="gone">
 
 
-                            <LinearLayout
+                            <!--                            <com.android.ex.chips.RecipientEditTextView-->
+                            <!--                                android:id="@+id/TagViewSaranPemanfaatan"-->
+                            <!--                                android:layout_width="match_parent"-->
+                            <!--                                android:layout_height="wrap_content"-->
+                            <!--                                android:layout_weight="1"-->
+                            <!--                                android:hint="Saran Pemanfaatan"-->
+                            <!--                                android:minHeight="58dp" />-->
+
+                            <TextView
+                                android:id="@+id/textView"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/asap_medium"
+                                android:text="Saran Pemanfaatan"
+                                android:textColor="@color/gray_800" />
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/CvSaranPemanfaatan"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="horizontal" />
+                                android:layout_height="wrap_content"
+                                app:cardBackgroundColor="@color/gray_100"
+                                app:cardCornerRadius="5dp">
+
+                                <com.pchmn.materialchips.ChipsInput
+                                    android:id="@+id/chips_input"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="400dp"
+                                    android:descendantFocusability="blocksDescendants"
+                                    app:chip_backgroundColor="@android:color/holo_blue_light"
+                                    app:chip_deletable="true"
+                                    app:chip_deleteIconColor="@color/colorWhite"
+                                    app:chip_detailed_deleteIconColor="@color/colorWhite"
+                                    app:chip_detailed_textColor="@color/colorWhite"
+                                    app:chip_hasAvatarIcon="false"
+                                    app:chip_labelColor="@color/colorWhite"
+                                    app:filterable_list_backgroundColor="@color/gray_200"
+                                    app:filterable_list_textColor="@color/gray_900"
+                                    app:hint="Ketik spasi untuk menampilkan semua pilihan"
+                                    app:showChipDetailed="false"
+                                    app:textColor="@color/gray_800" />
+                            </androidx.cardview.widget.CardView>
+
+                            <Button
+                                android:id="@+id/BtnKirim"
+                                android:layout_width="wrap_content"
+                                android:layout_height="35dp"
+                                android:layout_gravity="center_vertical|end"
+                                android:layout_margin="10dp"
+                                android:background="@drawable/bg_gradient_info_8"
+                                android:elevation="0dp"
+                                android:enabled="true"
+                                android:fontFamily="@font/asap_bold"
+                                android:text="Kirim"
+                                android:textAllCaps="false"
+                                android:textColor="@color/colorWhite" />
                         </LinearLayout>
 
                     </LinearLayout>

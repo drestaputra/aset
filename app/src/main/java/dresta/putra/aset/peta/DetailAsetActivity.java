@@ -6,10 +6,13 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.google.gson.annotations.SerializedName;
-import com.squareup.picasso.Picasso;
+import com.pchmn.materialchips.ChipsInput;
+import com.pchmn.materialchips.model.ChipInterface;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.widget.NestedScrollView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.util.Log;
@@ -19,14 +22,17 @@ import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
-import dresta.putra.aset.AboutActivity;
+import dresta.putra.aset.ResponsePojo;
 import dresta.putra.aset.RetrofitClientInstance;
-import dresta.putra.aset.WebActivity;
+import dresta.putra.aset.peta.model.SaranPemanfaatanPojo;
+import dresta.putra.aset.peta.model.SaranPemanfaatanResponsePojo;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -43,18 +49,34 @@ public class DetailAsetActivity extends AppCompatActivity {
     WebView WvKeterangan;
     Toolbar toolbar;
     private AdapterFotoMarker adapterFotoMarker;
+    ChipsInput chipsInput;
+    List<SaranPemanfaatanPojo> contactList = new ArrayList<>();
+    List<String> selectedIdsaranPemanfaatan = new ArrayList<>();
+
 
     interface MyAPIService{
         @FormUrlEncoded
         @POST("api/aset/detail_aset")
         Call<ResponseDetailAsetPojo> getDetailArtikel(@Field("id_aset") String id_aset);
-    }
 
+        @FormUrlEncoded
+        @POST("api/aset/data_saran_pemanfaatan")
+        Call<SaranPemanfaatanResponsePojo> getDataSaranPemanfaatan(
+                @Field("pencarian") String pencarian,
+                @Field("page") int page,
+                @Field("perPage") int perPage
+        );
+
+      @FormUrlEncoded
+      @POST("api/aset/kirim_saran_pemanfaatan")
+      Call<ResponsePojo> kirimSaranPemanfaatan(@Field("id_aset") String id_aset, @Field("id_saran_pemanfaatan[]") List<String> id_saran_pemanfaatan);
+    }
+    private MyAPIService myAPIService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_aset);
-
+        myAPIService = RetrofitClientInstance.getRetrofitInstance(getApplicationContext()).create(MyAPIService.class);
         viewPager = findViewById(R.id.viewPager);
         ivGambarBerita =  findViewById(R.id.IvGambarArtikel);
 
@@ -62,6 +84,9 @@ public class DetailAsetActivity extends AppCompatActivity {
         TxvLuasAset = findViewById(R.id.TxvLuasAset);
         TxvAlamatAset = findViewById(R.id.TxvAlamatAset);
         TxvHak = findViewById(R.id.TxvHak);
+        LinearLayout LlSaranPemanfaatan = findViewById(R.id.LlSaranPemanfaatan);
+
+        Button BtnKirim = findViewById(R.id.BtnKirim);
 
         BtnMap = findViewById(R.id.BtnMap);
         BtnRute = findViewById(R.id.BtnRute);
@@ -84,10 +109,64 @@ public class DetailAsetActivity extends AppCompatActivity {
             intentl.putExtra("id_aset", id_aseti);
             startActivity(intentl);
         });
+        BtnKirim.setOnClickListener(v-> {
+            List<? extends ChipInterface> saranPemanfaatanPojosSelected = chipsInput.getSelectedChipList();
+            for (int i = 0; i < saranPemanfaatanPojosSelected.size();i++){
+                selectedIdsaranPemanfaatan.add(saranPemanfaatanPojosSelected.get(i).getId().toString());
+             }
+            Call<ResponsePojo> responsePojoCall = myAPIService.kirimSaranPemanfaatan(id_aseti,selectedIdsaranPemanfaatan);
+            responsePojoCall.enqueue(new Callback<ResponsePojo>() {
+                @Override
+                public void onResponse(@NonNull Call<ResponsePojo> call, @NonNull Response<ResponsePojo> response) {
+                    if (response.body() != null){
+                        if (response.body().getStatus() == 200){
+                            Toast.makeText(DetailAsetActivity.this, "Saran Pemanfaatan Berhasil Dikirim", Toast.LENGTH_SHORT).show();
+                            finish();
+                        }else{
+                            Toast.makeText(DetailAsetActivity.this, response.body().getMsg(), Toast.LENGTH_SHORT).show();
+                        }
+                    }else{
+                        Toast.makeText(DetailAsetActivity.this, "Saran Pemanfaatan Gagal Dikirim", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<ResponsePojo> call, @NonNull Throwable t) {
+                    Toast.makeText(DetailAsetActivity.this, "Gagal", Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
+
+        chipsInput = (ChipsInput) findViewById(R.id.chips_input);
+        chipsInput.clearFocus();
+        NestedScrollView SvDetailAset = findViewById(R.id.SvDetailAset);
+
+        chipsInput.addChipsListener(new ChipsInput.ChipsListener() {
+
+            @Override
+            public void onChipRemoved(ChipInterface chip, int newSize) {
+                // chip removed
+                // newSize is the size of the updated selected chip list
+            }
+
+            @Override
+            public void onChipAdded(ChipInterface chip, int newSize) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence text) {
+                // text changed
+            }
+        });
+
+
+
+
 
 //        WvKeterangan = (WebView) findViewById(R.id.WvKeterangan);
 
-        MyAPIService myAPIService = RetrofitClientInstance.getRetrofitInstance(getApplicationContext()).create(MyAPIService.class);
+
 
         Call<ResponseDetailAsetPojo> call = myAPIService.getDetailArtikel(id_aseti);
         call.enqueue(new Callback<ResponseDetailAsetPojo>() {
@@ -100,6 +179,14 @@ public class DetailAsetActivity extends AppCompatActivity {
                         PetaPojo informasiProgramPojo = response.body().getData();
                         if (informasiProgramPojo.getLatitude() != null && informasiProgramPojo.getLongitude() != null){
                             BtnMap.setVisibility(View.VISIBLE);
+                        }
+                        if (informasiProgramPojo.getStatus_aset().equals("idle")){
+                            //        jika status aset = idle
+                            LlSaranPemanfaatan.setVisibility(View.VISIBLE);
+                            SvDetailAset.post(() -> SvDetailAset.fullScroll(View.FOCUS_DOWN));
+                            initDataSaranPemanfaatan();
+                        }else{
+                            LlSaranPemanfaatan.setVisibility(View.GONE);
                         }
                         showDetailAset(informasiProgramPojo);
                     }
@@ -119,6 +206,26 @@ public class DetailAsetActivity extends AppCompatActivity {
         }
         changeStatusBarColor();
 
+
+    }
+    private void initDataSaranPemanfaatan(){
+        Call<SaranPemanfaatanResponsePojo> saranPemanfaatanResponsePojoCall = myAPIService.getDataSaranPemanfaatan("",0,9999);
+        saranPemanfaatanResponsePojoCall.enqueue(new Callback<SaranPemanfaatanResponsePojo>() {
+            @Override
+            public void onResponse(Call<SaranPemanfaatanResponsePojo> call, Response<SaranPemanfaatanResponsePojo> response) {
+                if (response.body() != null){
+                    if (response.body().getStatus() == 200){
+                        List<SaranPemanfaatanPojo> saranPemanfaatanPojos = response.body().getData();
+                        chipsInput.setFilterableList(saranPemanfaatanPojos);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SaranPemanfaatanResponsePojo> call, Throwable t) {
+
+            }
+        });
 
     }
     private void changeStatusBarColor() {

@@ -231,10 +231,8 @@ public class StreetViewActivity extends AppCompatActivity {
             }
 
             public void onPageFinished(WebView view, String url) {
-                final Handler handler = new Handler(Looper.getMainLooper());
-                webView.setAlpha(1);
+//                final Handler handler = new Handler(Looper.getMainLooper());
                 progressBar.setVisibility(View.GONE);
-                Log.d("tesdebug", url);
 //                handler.postDelayed(() -> {
 //                    if (url.contains("data"))
 //                    {

@@ -1,5 +1,6 @@
 package dresta.putra.aset.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -39,11 +40,12 @@ import retrofit2.http.POST;
 
 public class FragmentAset extends Fragment {
     private ProgressBar progressBar;
-    private static final int PAGE_START = 0;
+    private int PAGE_START = 0;
     private boolean isLoading = false;
     private boolean isLastPage = false;
     private int TOTAL_PAGES;
-    private int TOTAL_RECORDS = 0;
+    private int PER_PAGE = 20;
+    private int TOTAL_RECORDS;
     private int currentPage = PAGE_START;
     private SearchView mSearchView;
     private String query_pencarian="";
@@ -72,8 +74,11 @@ public class FragmentAset extends Fragment {
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_aset, container, false);
         prefManager = new PrefManager(getContext());
-
         results = new ArrayList<>();
+        PAGE_START = 0;
+        currentPage = 0;
+        isLastPage = false;
+
         linearLayoutManager = new GridLayoutManager(Objects.requireNonNull(getActivity()).getApplicationContext(),1);
         ServicePojo = RetrofitClientInstance.getRetrofitInstance(getActivity().getApplicationContext()).create(APIAset.class);
         progressBar = view.findViewById(R.id.main_progress);
@@ -93,7 +98,6 @@ public class FragmentAset extends Fragment {
         rv.addOnScrollListener(new PaginationScrollListener(linearLayoutManager) {
             @Override
             protected void loadMoreItems() {
-
                 isLoading = true;
                 currentPage += 1;
                 new Handler().postDelayed(() -> loadNextPage(), 1000);
@@ -122,6 +126,7 @@ public class FragmentAset extends Fragment {
 
         return view;
     }
+
     private  void searchListener(){
         mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -286,7 +291,7 @@ public class FragmentAset extends Fragment {
                     0
             );
         }else{
-            int PER_PAGE = 20;
+
             petaResponsePojoCall = ServicePojo.getDataAset(
                     query_pencarian,
                     currentPage,
